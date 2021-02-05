@@ -1,0 +1,9 @@
+﻿namespace CarTryApplicationMVC.Domain.Model
+{
+    public class CarEquipment
+    {
+        public int Id { get; set; }
+        public string Equipment { get; set; }
+        public virtual Ad CarAd { get; set; }
+    }
+}
