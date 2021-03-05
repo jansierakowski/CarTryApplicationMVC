@@ -9,6 +9,7 @@ namespace CarTryApplicationMVC.Domain.Model
         public int Id { get; set; }
         public string FeedbackDetial { get; set; }
         public DateTime WhenOpinionsWasAdded { get; set; }
+        public int ContactId { get; set; }
 
         public virtual Contact Contact { get; set; }
 

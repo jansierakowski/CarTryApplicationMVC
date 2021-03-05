@@ -15,7 +15,8 @@ namespace CarTryApplicationMVC.Domain.Model
         public string FuelType { get; set; }
         public string DriveTrain { get; set; }
         public int NumberOfCylinders { get; set; }
-
+        public int ContactId { get; set; }
+        public int CarTypeBodyId { get; set; }
         public virtual ICollection<Ad> Ads { get; set; }
         public virtual ICollection<CarFeedback> CarFeedbacks { get; set; }
         public virtual ICollection<CarEquipment> CarEquipments { get; set; }

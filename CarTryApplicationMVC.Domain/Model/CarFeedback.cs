@@ -9,7 +9,7 @@ namespace CarTryApplicationMVC.Domain.Model
         public int Id { get; set; }
         public string FeedbackDetial { get; set; }
         public DateTime WhenOpinionsWasAdded { get; set; }
-
+        public int CarId { get; set; }
         public virtual Car Car { get; set; }
     }
 }
