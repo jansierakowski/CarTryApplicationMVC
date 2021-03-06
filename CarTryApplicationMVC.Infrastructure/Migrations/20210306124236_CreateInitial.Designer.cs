@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarTryApplicationMVC.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210205114711_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20210306124236_CreateInitial")]
+    partial class CreateInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,10 +28,19 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("AdTypeId")
+                    b.Property<string>("AdName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AdPrice")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AdPromotion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AdTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CarId")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -95,10 +104,10 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.Property<int>("CarProductionYear")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CarTypeBodyId")
+                    b.Property<int>("CarTypeBodyId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ContactId")
+                    b.Property<int>("ContactId")
                         .HasColumnType("int");
 
                     b.Property<string>("DriveTrain")
@@ -129,7 +138,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.Property<int?>("CarAdId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CarId")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
                     b.Property<string>("Equipment")
@@ -151,7 +160,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CarId")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
                     b.Property<string>("FeedbackDetial")
@@ -210,10 +219,10 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.Property<string>("ContactDetailInformation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ContactDetailTypeId")
+                    b.Property<int>("ContactDetailTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ContactId")
+                    b.Property<int>("ContactId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -247,7 +256,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ContactId")
+                    b.Property<int>("ContactId")
                         .HasColumnType("int");
 
                     b.Property<string>("FeedbackDetial")
@@ -482,11 +491,15 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 {
                     b.HasOne("CarTryApplicationMVC.Domain.Model.AdType", "AdType")
                         .WithMany("CarAds")
-                        .HasForeignKey("AdTypeId");
+                        .HasForeignKey("AdTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CarTryApplicationMVC.Domain.Model.Car", "Car")
                         .WithMany("Ads")
-                        .HasForeignKey("CarId");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AdType");
 
@@ -516,11 +529,15 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 {
                     b.HasOne("CarTryApplicationMVC.Domain.Model.CarTypeBody", "CarTypeBody")
                         .WithMany("Cars")
-                        .HasForeignKey("CarTypeBodyId");
+                        .HasForeignKey("CarTypeBodyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CarTryApplicationMVC.Domain.Model.Contact", "Contact")
                         .WithMany("Cars")
-                        .HasForeignKey("ContactId");
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CarTypeBody");
 
@@ -533,9 +550,13 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("CarAdId");
 
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.Car", null)
+                    b.HasOne("CarTryApplicationMVC.Domain.Model.Car", "Car")
                         .WithMany("CarEquipments")
-                        .HasForeignKey("CarId");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
 
                     b.Navigation("CarAd");
                 });
@@ -544,7 +565,9 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 {
                     b.HasOne("CarTryApplicationMVC.Domain.Model.Car", "Car")
                         .WithMany("CarFeedbacks")
-                        .HasForeignKey("CarId");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Car");
                 });
@@ -553,11 +576,15 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 {
                     b.HasOne("CarTryApplicationMVC.Domain.Model.ContactDetailType", "ContactDetailType")
                         .WithMany()
-                        .HasForeignKey("ContactDetailTypeId");
+                        .HasForeignKey("ContactDetailTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CarTryApplicationMVC.Domain.Model.Contact", "Contact")
                         .WithMany("ContactDetails")
-                        .HasForeignKey("ContactId");
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Contact");
 
@@ -568,7 +595,9 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 {
                     b.HasOne("CarTryApplicationMVC.Domain.Model.Contact", "Contact")
                         .WithMany("CustomerFeedbacks")
-                        .HasForeignKey("ContactId");
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Contact");
                 });
