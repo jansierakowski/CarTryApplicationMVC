@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarTryApplicationMVC.Web.Controllers
 {
-    public class Contact : Controller
+    public class Customer : Controller
     {
         public IActionResult Index()
         {

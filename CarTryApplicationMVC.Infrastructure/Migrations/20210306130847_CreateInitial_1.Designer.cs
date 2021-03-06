@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarTryApplicationMVC.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210306124236_CreateInitial")]
-    partial class CreateInitial
+    [Migration("20210306130847_CreateInitial_1")]
+    partial class CreateInitial_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,7 +107,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.Property<int>("CarTypeBodyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ContactId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("DriveTrain")
@@ -123,7 +123,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
 
                     b.HasIndex("CarTypeBodyId");
 
-                    b.HasIndex("ContactId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Cars");
                 });
@@ -191,7 +191,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.ToTable("CarTypeBodies");
                 });
 
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.Contact", b =>
+            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -206,35 +206,35 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.ContactDetail", b =>
+            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("ContactDetailInformation")
+                    b.Property<string>("CustomerDetailInformation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ContactDetailTypeId")
+                    b.Property<int>("CustomerDetailTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ContactId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContactDetailTypeId");
+                    b.HasIndex("CustomerDetailTypeId");
 
-                    b.HasIndex("ContactId");
+                    b.HasIndex("CustomerId");
 
-                    b.ToTable("ContactDetails");
+                    b.ToTable("CustomerDetails");
                 });
 
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.ContactDetailType", b =>
+            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerDetailType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -246,7 +246,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactDetailType");
+                    b.ToTable("CustomerDetailType");
                 });
 
             modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerFeedback", b =>
@@ -256,7 +256,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("ContactId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("FeedbackDetial")
@@ -267,7 +267,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContactId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("CustomerFeedbacks");
                 });
@@ -533,15 +533,15 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.Contact", "Contact")
+                    b.HasOne("CarTryApplicationMVC.Domain.Model.Customer", "Customer")
                         .WithMany("Cars")
-                        .HasForeignKey("ContactId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CarTypeBody");
 
-                    b.Navigation("Contact");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CarEquipment", b =>
@@ -572,34 +572,34 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.Navigation("Car");
                 });
 
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.ContactDetail", b =>
+            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerDetail", b =>
                 {
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.ContactDetailType", "ContactDetailType")
+                    b.HasOne("CarTryApplicationMVC.Domain.Model.CustomerDetailType", "CustomerDetailType")
                         .WithMany()
-                        .HasForeignKey("ContactDetailTypeId")
+                        .HasForeignKey("CustomerDetailTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.Contact", "Contact")
-                        .WithMany("ContactDetails")
-                        .HasForeignKey("ContactId")
+                    b.HasOne("CarTryApplicationMVC.Domain.Model.Customer", "Customer")
+                        .WithMany("CustomerDetail")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Contact");
+                    b.Navigation("Customer");
 
-                    b.Navigation("ContactDetailType");
+                    b.Navigation("CustomerDetailType");
                 });
 
             modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerFeedback", b =>
                 {
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.Contact", "Contact")
+                    b.HasOne("CarTryApplicationMVC.Domain.Model.Customer", "Customer")
                         .WithMany("CustomerFeedbacks")
-                        .HasForeignKey("ContactId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Contact");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -677,11 +677,11 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.Navigation("Cars");
                 });
 
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.Contact", b =>
+            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.Customer", b =>
                 {
                     b.Navigation("Cars");
 
-                    b.Navigation("ContactDetails");
+                    b.Navigation("CustomerDetail");
 
                     b.Navigation("CustomerFeedbacks");
                 });

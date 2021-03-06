@@ -16,9 +16,9 @@ namespace CarTryApplicationMVC.Infrastructure
         public DbSet<CarEquipment> CarEquipments { get; set; }
         public DbSet<CarFeedback> CarFeedbacks { get; set; }
         public DbSet<CarTypeBody> CarTypeBodies { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<ContactDetail> ContactDetails { get; set; }
-        public ContactDetailType ContactDetailTypes { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerDetail> CustomerDetails { get; set; }
+        public CustomerDetailType CustomerDetailTypes { get; set; }
         public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
