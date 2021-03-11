@@ -8,6 +8,8 @@ namespace CarTryApplicationMVC.Domain.Interfaces
 {
     public interface ICustomerRepository
     {
+        IQueryable<Customer> GetAllActiveCustomers();
+        Customer GetCustomer(int customerId);
         int AddCustomer(Customer customer);
         void DeleteCustomer(int customerId);
         IQueryable<CustomerDetail> GetDetailCustomerInfotmationByCustomerId(int customerId);

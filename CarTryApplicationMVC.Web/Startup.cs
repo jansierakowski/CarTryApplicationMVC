@@ -14,6 +14,9 @@ using Microsoft.Extensions.Hosting;
 using CarTryApplicationMVC.Application.Interfaces;
 using CarTryApplicationMVC.Application.Service;
 using CarTryApplicationMVC.Infrastructure;
+using CarTryApplicationMVC.Application;
+using CarTryApplicationMVC.Domain.Interfaces;
+using CarTryApplicationMVC.Infrastructure.Repositories;
 
 namespace CarTryApplicationMVC.Web
 {
@@ -36,7 +39,10 @@ namespace CarTryApplicationMVC.Web
                 .AddEntityFrameworkStores<Context>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddTransient<IItemService, ItemService>();
+
+            //services.AddTransient<IItemService, ItemService>();
+            services.AddApplication();
+            services.AddInfrastructure();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

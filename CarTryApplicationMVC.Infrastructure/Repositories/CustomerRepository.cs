@@ -32,10 +32,20 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             }
         }
 
+        public IQueryable<Customer> GetAllActiveCustomers()
+        {
+            return _context.Customers.Where(p => p.IsActive);
+        }
+
         public IQueryable<Car> GetCarsAdsByCustomerId(int customerId)
         {
             var cars = _context.Cars.Where(a => a.Customer.Id == customerId);
             return cars;
+        }
+
+        public Customer GetCustomer(int customerId)
+        {
+            return _context.Customers.FirstOrDefault(p => p.Id == customerId);
         }
 
         public IQueryable<CustomerFeedback> GetCustomerFeedbeckByCustomerId(int customerId)

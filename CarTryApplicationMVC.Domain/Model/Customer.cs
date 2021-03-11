@@ -9,6 +9,8 @@ namespace CarTryApplicationMVC.Domain.Model
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string City { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual ICollection<Car> Cars { get; set; }
         public virtual ICollection<CustomerDetail> CustomerDetail { get; set; }
