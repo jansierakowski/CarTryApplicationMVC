@@ -50,16 +50,16 @@
             <tr>
                 @for (int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
                 {
-                    <td>
-                        @if (i != Model.CurrentPage)
-                        {
-                            <a herf="javascript:PagerClick(@i);"> @i </a>
-                        }
-                        else
-                        {
-                            <span>@i</span>
-                        }
-                    </td>
+                <td>
+                    @if (i != Model.CurrentPage)
+                    {
+                        <a href="javascript:void(0)" onclick="PagerClick(@i)"> @i </a>
+                    }
+                    else
+                    {
+                        <span>@i</span>
+                    }
+                </td>
                 }
             </tr>
         </table>

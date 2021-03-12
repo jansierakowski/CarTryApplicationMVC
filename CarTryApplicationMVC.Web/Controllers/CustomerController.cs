@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarTryApplicationMVC.Application.Interfaces;
+using CarTryApplicationMVC.Application.ViewModels.Customer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarTryApplicationMVC.Web.Controllers
@@ -36,18 +37,21 @@ namespace CarTryApplicationMVC.Web.Controllers
             var model = _custService.GetAllCustomerForList(pageSize,pageNo.Value,searchString);
             return View(model);
         }
-        //[HttpGet]
-        //public IActionResult AddCustomer()
-        //{
-        //    return View();
-        //}
 
-        //[HttpPost]
-        //public IActionResult AddCustomer(CustomerModel model)
-        //{
-        //    var id = customerService.AddCustomer(model);
-        //    return View();
-        //}
+        [HttpGet]
+        public IActionResult AddCustomer()
+        {
+            return View(new NewCustomerVm());
+        }
+
+        [HttpPost]
+        public IActionResult AddCustomer(NewCustomerVm model)
+        {
+            var id = _custService.AddCustomer(model);
+            return RedirectToAction("Index");
+        }
+
+
 
         //[HttpGet]
         //public IActionResult AddNewAddressForClient(int cumstomerId)

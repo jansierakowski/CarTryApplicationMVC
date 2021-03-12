@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using CarTryApplicationMVC.Application.Interfaces;
 using CarTryApplicationMVC.Application.ViewModels.Customer;
 using CarTryApplicationMVC.Domain.Interfaces;
+using CarTryApplicationMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,14 @@ namespace CarTryApplicationMVC.Application.Service
 
         public int AddCustomer(NewCustomerVm customer)
         {
-            throw new NotImplementedException();
+            var cust = _mapper.Map<Customer>(customer);
+            var id = _customerRepo.AddCustomer(cust);
+            return id;
         }
 
         public ListCustomerForListVm GetAllCustomerForList(int pageSize, int pageNo, string searchString)
         {
-            var customers = _customerRepo.GetAllActiveCustomers().Where(p=>p.FirstName.StartsWith(searchString))
+            var customers = _customerRepo.GetAllActiveCustomers().Where(p => p.FirstName.StartsWith(searchString))
                 .ProjectTo<CustomerForListVM>(_mapper.ConfigurationProvider).ToList();
             var customersToShow = customers.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
             var customList = new ListCustomerForListVm()
@@ -61,7 +64,7 @@ namespace CarTryApplicationMVC.Application.Service
                     CarLocation = car.CarLocation,
                     CarProductionYear = car.CarProductionYear,
                     FuelType = car.FuelType
-                    
+
                 };
                 customerVm.Cars.Add(add);
             }
