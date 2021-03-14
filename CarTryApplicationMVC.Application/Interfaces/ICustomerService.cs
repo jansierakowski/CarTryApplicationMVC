@@ -12,5 +12,8 @@ namespace CarTryApplicationMVC.Application.Interfaces
         int AddCustomer(NewCustomerVm customer);
 
         CustomerDetailsVm GetCustomerDetail(int customerId);
+        NewCustomerVm GetAllCustomerForEdit(int id);
+        void UpdateCustomer(NewCustomerVm model);
+        void DeleteCustomer(int id);
     }
 }

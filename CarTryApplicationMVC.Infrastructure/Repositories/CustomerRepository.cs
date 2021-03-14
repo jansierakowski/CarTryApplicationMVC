@@ -59,5 +59,14 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             var detialCustomer = _context.CustomerDetails.Where(a => a.Customer.Id == customerId);
             return detialCustomer;
         }
+
+        public void UpdateCustomer(Customer customer)
+        {
+            _context.Attach(customer);
+
+            _context.Entry(customer).Property("FirstName").IsModified = true;
+            _context.Entry(customer).Property("LastName").IsModified = true;
+            _context.SaveChanges();
+        }
     }
 }

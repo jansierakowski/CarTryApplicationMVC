@@ -29,6 +29,18 @@ namespace CarTryApplicationMVC.Application.Service
             return id;
         }
 
+        public void DeleteCustomer(int id)
+        {
+            _customerRepo.DeleteCustomer(id);
+        }
+
+        public NewCustomerVm GetAllCustomerForEdit(int id)
+        {
+            var customer = _customerRepo.GetCustomer(id);
+            var customerVm = _mapper.Map<NewCustomerVm>(customer);
+            return customerVm;
+        }
+
         public ListCustomerForListVm GetAllCustomerForList(int pageSize, int pageNo, string searchString)
         {
             var customers = _customerRepo.GetAllActiveCustomers().Where(p => p.FirstName.StartsWith(searchString))
@@ -69,6 +81,12 @@ namespace CarTryApplicationMVC.Application.Service
                 customerVm.Cars.Add(add);
             }
             return customerVm;
+        }
+
+        public void UpdateCustomer(NewCustomerVm model)
+        {
+            var customer = _mapper.Map<Customer>(model);
+            _customerRepo.UpdateCustomer(customer);
         }
     }
 }

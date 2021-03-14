@@ -15,8 +15,6 @@ namespace CarTryApplicationMVC.Domain.Interfaces
         IQueryable<CustomerDetail> GetDetailCustomerInfotmationByCustomerId(int customerId);
         IQueryable<Car> GetCarsAdsByCustomerId(int customerId);
         IQueryable<CustomerFeedback> GetCustomerFeedbeckByCustomerId(int customerId);
-
-     
-
+        void UpdateCustomer(Customer customer);
     }
 }

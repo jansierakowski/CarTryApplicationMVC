@@ -45,14 +45,41 @@ namespace CarTryApplicationMVC.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddCustomer(NewCustomerVm model)
         {
+            if(ModelState.IsValid)
+            { 
             var id = _custService.AddCustomer(model);
             return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
+        [HttpGet]
+        public IActionResult EditCustomer(int id)
+        {
+            var customer = _custService.GetAllCustomerForEdit(id);
+            return View(customer);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditCustomer(NewCustomerVm model)
+        {
+            if (ModelState.IsValid)
+            {
+                _custService.UpdateCustomer(model);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
 
+        public IActionResult Delete(int id)
+        {
+            _custService.DeleteCustomer(id);
+            return RedirectToAction("Index");
+        }
         //[HttpGet]
         //public IActionResult AddNewAddressForClient(int cumstomerId)
         //{
