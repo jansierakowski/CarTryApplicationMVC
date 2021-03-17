@@ -14,7 +14,7 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
         public int AdPrice { get; set; }
         public string AdPromotion { get; set; }
         public string AdDescription { get; set; }
-
+        public int CarId { get; set; }
         public string CarGeneration { get; set; }
         public int CarProductionYear { get; set; }
         public string CarBrand { get; set; }

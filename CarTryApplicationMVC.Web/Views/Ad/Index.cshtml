@@ -15,61 +15,40 @@
         <input type="submit" value="Wyszukaj marke" />
         <input type="text" asp-for="CarModelString" name="carModelString" id="carModelString" />
         <input type="submit" value="Wyszukaj model" />
-        <input type="text" asp-for="CarProductionYearFrom" name="carProductionYearFrom" id="carProductionYearFrom" />
-        <input type="submit" value="Rok produkcji Od" />
-        <input type="text" asp-for="CarProductionYearTo" name="carProductionYearFrom" id="carProductionYearTo" />
-        <input type="submit" value="Rok produkcji Do" />
+
     </div>
     <div class="row">
         <input type="text" asp-for="CarTypeBodyString" name="carTypeBodyString" id="carTypeBodyString" />
         <input type="submit" value="Wyszukaj typ" />
         <input type="text" asp-for="CarLocationString" name="carLocationString" id="carLocationString" />
         <input type="submit" value="Miejscowość" />
+    </div>
+    <div class="row">
+
         <input type="text" asp-for="DriveTrainString" name="driveTrainString" id="driveTrainString" />
         <input type="submit" value="Rodzaj napędu" />
         <input type="text" asp-for="FuelTypeString" name="fuelTypeString" id="fuelTypeString" />
         <input type="submit" value="Rodzaj paliwa" />
     </div>
-    <div class="row">
-        <input type="text" asp-for="NumberOfCylindersStringFrom" name="numberOfCylindersStringFrom" id="numberOfCylindersStringFrom" />
-        <input type="submit" value="Ilość cylindrów od" />
-        <input type="text" asp-for="NumberOfCylindersStringTo" name="numberOfCylindersStringTo" id="numberOfCylindersStringTo" />
-        <input type="submit" value="Ilość cylindrów do" />
-        <input type="text" asp-for="OdometerValueStringFrom" name="OdometerValueStringFrom" id="OdometerValueStringFrom" />
-        <input type="submit" value="Przebieg od" />
-        <input type="text" asp-for="OdometerValueStringTo" name="OdometerValueStringTo" id="OdometerValueStringTo" />
-        <input type="submit" value="Przebieg do" />
-    </div>
 
     <table class="table">
         <thead>
             <tr>
+
                 <th>
-                    @Html.DisplayNameFor(model => model.CurrentPage)
+                    Marka
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PageSize)
+                    Model
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Count)
+                    Lokalizacja
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CarBrandString)
+                    Rodzaj paliwa
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CarModelString)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CarLocationString)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DriveTrainString)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FuelTypeString)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CarTypeBodyString)
+                    Przebieg
                 </th>
                 <th></th>
             </tr>
@@ -129,8 +108,7 @@
 @section Scripts
 {
     <script type="text/javascript">
-        function PagerClick(index)
-        {
+        function PagerClick(index) {
             document.getElementById("pageNo").value = index;
             document.forms[0].submit();
         }

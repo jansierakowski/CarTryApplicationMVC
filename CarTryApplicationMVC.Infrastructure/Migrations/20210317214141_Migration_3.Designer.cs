@@ -4,14 +4,16 @@ using CarTryApplicationMVC.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarTryApplicationMVC.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210317214141_Migration_3")]
+    partial class Migration_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,9 +48,6 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
 
                     b.Property<int>("CarId")
                         .HasColumnType("int");
-
-                    b.Property<string>("CarLocation")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CarNumberOfCylinders")
                         .HasColumnType("int");
@@ -100,6 +99,9 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CarGeneration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CarLocation")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CarModel")

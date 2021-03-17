@@ -49,36 +49,12 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             return carModel;
         }
 
-        public IQueryable<Car> GetCarsByLocation(string location)
+        public IQueryable<Ad> GetCarsByLocation(string location)
         {
-            var carLocation = _context.Cars.Where(a => a.CarLocation == location);
+            var carLocation = _context.Ads.Where(a => a.CarLocation == location);
             return carLocation;
         }
-
-        public IQueryable<Car> GetCarsBYear(int year)
-        {
-            var carYear = _context.Cars.Where(a => a.CarProductionYear == year);
-            return carYear;
-        }
-
-        public IQueryable<Car> GetCarsByFuelType(string fuel)
-        {
-            var fuelType = _context.Cars.Where(a => a.FuelType == fuel);
-            return fuelType;
-        }        
         
-        public IQueryable<Car> GetCarsByDriveTrain(string drivetrain)
-        {
-            var carDriveTrain = _context.Cars.Where(a => a.FuelType == drivetrain);
-            return carDriveTrain;
-        }
-
-        public IQueryable<Car> GetCarsByNumberOfCylinder(int cylinder)
-        {
-            var carNumberOfCylinder = _context.Cars.Where(a => a.NumberOfCylinders == cylinder);
-            return carNumberOfCylinder;
-        }
-
         public Car GetCarById(int id)
         {
             var carId = _context.Cars.FirstOrDefault(a => a.Id == id);

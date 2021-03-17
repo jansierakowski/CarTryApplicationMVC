@@ -28,15 +28,16 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
 
         public void Mapping(MappingProfile profile)
         {
-            profile.CreateMap<Domain.Model.Ad, AdDetailsVm>()
-                    .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.Car.CarBrand))
-                    .ForMember(s => s.CarGeneration, opt => opt.MapFrom(s => s.Car.CarGeneration))
-                    .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.Car.CarModel))
-                    .ForMember(s => s.CarLocation, opt => opt.MapFrom(s => s.Car.CarLocation))
-                    .ForMember(s => s.OdometerValue, opt => opt.MapFrom(s => s.Car.OdometerValue))
-                    .ForMember(s => s.FuelType, opt => opt.MapFrom(s => s.Car.FuelType))
-                    .ForMember(s => s.CarEquipment, opt => opt.MapFrom(s => s.Car.CarEquipments))
-                    .ForMember(s => s.NumberOfCylinders, opt => opt.MapFrom(s => s.Car.NumberOfCylinders));
+            profile.CreateMap<Domain.Model.Ad, AdDetailsVm>();
+            profile.CreateMap<Domain.Model.Car, AdDetailsVm>();
+                    //.ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.Car.CarBrand))
+                    //.ForMember(s => s.CarGeneration, opt => opt.MapFrom(s => s.Car.CarGeneration))
+                    //.ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.Car.CarModel))
+                    //.ForMember(s => s.CarLocation, opt => opt.MapFrom(s => s.Car.CarLocation))
+                    //.ForMember(s => s.OdometerValue, opt => opt.MapFrom(s => s.Car.OdometerValue))
+                    //.ForMember(s => s.FuelType, opt => opt.MapFrom(s => s.Car.FuelType))
+                    //.ForMember(s => s.CarEquipment, opt => opt.MapFrom(s => s.Car.CarEquipments))
+                    //.ForMember(s => s.NumberOfCylinders, opt => opt.MapFrom(s => s.Car.NumberOfCylinders));
                     
         }
     }

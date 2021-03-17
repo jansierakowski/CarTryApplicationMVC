@@ -20,35 +20,48 @@ namespace CarTryApplicationMVC.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _adService.GetAllAdForList(10, 1, "", "", "", 0, 2021, "", "", 16, 0, "", 0, 10000000);
+            var model = _adService.GetAllAdForList(10, 1, "", "", "", "", "", "");
             return View(model);
         }
 
         [HttpPost]
         public IActionResult Index(int pageSize, int? pageNo, string carBrandString, string carModelString, string carLocationString,
-            int carProductionYearTo, int carProductionYearFrom, string driveTrainString, string fuelTypeString,
-            int numberOfCylindersStringTo, int numberOfCylindersStringFrom, string carTypeBodyString, int odometerValueStringTo,
-            int odometerValueStringFrom)
+                string driveTrainString, string fuelTypeString, string carTypeBodyString)
         {
             if (!pageNo.HasValue)
             {
                 pageNo = 1;
             }
-            //if (carBrandString is null || carModelString is null || carLocationString is null || driveTrainString is null || fuelTypeString is null
-            //    || carTypeBodyString is null)
-            //{
-            //    carBrandString = String.Empty;
-            //    carModelString = String.Empty;
-            //    carLocationString = String.Empty;
-            //    driveTrainString = String.Empty;
-            //    fuelTypeString = String.Empty;
-            //    carTypeBodyString = String.Empty;
-            //}
+            if (carBrandString is null)
+            {
+                carBrandString = String.Empty;
+               
+            }
+            if (carModelString is null)
+            {
+                carModelString = String.Empty;
+            }
+
+            if (carLocationString is null)
+            {
+                carLocationString = String.Empty;
+            }
+            if (driveTrainString is null)
+            {
+                driveTrainString = String.Empty;
+            }
+            if (fuelTypeString is null)
+            {
+                fuelTypeString = String.Empty;
+            }
+            if (carTypeBodyString is null)
+            {
+                carTypeBodyString = String.Empty;
+            }
+
 
             var model = _adService.GetAllAdForList(pageSize, pageNo.Value, carBrandString, carModelString, carLocationString,
-            carProductionYearTo, carProductionYearFrom, driveTrainString, fuelTypeString,
-            numberOfCylindersStringTo, numberOfCylindersStringFrom, carTypeBodyString, odometerValueStringTo,
-            odometerValueStringFrom);
+            driveTrainString, fuelTypeString, carTypeBodyString);
 
             return View(model);
         }
