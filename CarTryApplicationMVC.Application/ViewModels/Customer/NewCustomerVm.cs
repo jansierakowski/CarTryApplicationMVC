@@ -21,7 +21,7 @@ namespace CarTryApplicationMVC.Application.ViewModels.Customer
         public void Mapping(MappingProfile profile)
         {
             profile.CreateMap<NewCustomerVm, Domain.Model.Customer>()
-                .ForMember(s => s.IsActive, opt => opt.MapFrom(s => 1))
+                .ForMember(s => s.IsActive, opt => opt.MapFrom(s => true))
                 .ReverseMap();
         }
     }

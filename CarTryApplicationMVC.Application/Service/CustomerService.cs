@@ -44,7 +44,7 @@ namespace CarTryApplicationMVC.Application.Service
         public ListCustomerForListVm GetAllCustomerForList(int pageSize, int pageNo, string searchString)
         {
             var customers = _customerRepo.GetAllActiveCustomers().Where(p => p.FirstName.StartsWith(searchString))
-                .ProjectTo<CustomerForListVM>(_mapper.ConfigurationProvider).ToList();
+                .ProjectTo<CustomerForListVm>(_mapper.ConfigurationProvider).ToList();
             var customersToShow = customers.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
             var customList = new ListCustomerForListVm()
             {
@@ -64,21 +64,27 @@ namespace CarTryApplicationMVC.Application.Service
             var customerVm = _mapper.Map<CustomerDetailsVm>(customer);
 
             customerVm.Adresses = new List<AddressForListVm>();
-            customerVm.Cars = new List<CustomerCarForListVm>();
+            customerVm.Ad = new List<CustomerAdForListVm>();
             customerVm.PhoneNumbers = new List<ContactDetailsListVm>();
 
-            foreach (var car in customer.Cars)
+            if (customer.Ads != null)
             {
-                var add = new CustomerCarForListVm()
+                foreach (var ad in customer.Ads)
                 {
-                    CarBrand = car.CarBrand,
-                    CarModel = car.CarModel,
-                    CarLocation = car.CarLocation,
-                    CarProductionYear = car.CarProductionYear,
-                    FuelType = car.FuelType
+                    var add = new CustomerAdForListVm()
+                    {
+                        AdName = ad.AdName,
+                        AdPrice = ad.AdPrice,
+                        CarBrand = ad.Car.CarBrand,
+                        CarModel = ad.Car.CarModel,
+                        CarProductionYear = ad.Car.CarProductionYear,
+                        CarLocation = ad.Car.CarLocation,
+                        FuelType = ad.Car.FuelType
 
-                };
-                customerVm.Cars.Add(add);
+
+                    };
+                    customerVm.Ad.Add(add);
+                }
             }
             return customerVm;
         }

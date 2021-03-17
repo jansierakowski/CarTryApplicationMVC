@@ -12,6 +12,7 @@ namespace CarTryApplicationMVC.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IAdRepository, AdRepository>();
             return services;
         }
     }

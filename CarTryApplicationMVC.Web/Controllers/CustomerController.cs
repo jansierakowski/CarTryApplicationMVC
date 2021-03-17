@@ -80,6 +80,17 @@ namespace CarTryApplicationMVC.Web.Controllers
             _custService.DeleteCustomer(id);
             return RedirectToAction("Index");
         }
+
+
+        [HttpGet]
+        public IActionResult CustomerDetail(int id)
+        {
+            var customer = _custService.GetCustomerDetail(id);
+            return View(customer);
+        }
+
+
+
         //[HttpGet]
         //public IActionResult AddNewAddressForClient(int cumstomerId)
         //{

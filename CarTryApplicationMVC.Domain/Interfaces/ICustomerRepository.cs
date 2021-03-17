@@ -13,7 +13,7 @@ namespace CarTryApplicationMVC.Domain.Interfaces
         int AddCustomer(Customer customer);
         void DeleteCustomer(int customerId);
         IQueryable<CustomerDetail> GetDetailCustomerInfotmationByCustomerId(int customerId);
-        IQueryable<Car> GetCarsAdsByCustomerId(int customerId);
+        //IQueryable<Car> GetCarsAdsByCustomerId(int customerId);
         IQueryable<CustomerFeedback> GetCustomerFeedbeckByCustomerId(int customerId);
         void UpdateCustomer(Customer customer);
     }

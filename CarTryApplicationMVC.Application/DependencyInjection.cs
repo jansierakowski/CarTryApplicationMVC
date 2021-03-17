@@ -13,6 +13,7 @@ namespace CarTryApplicationMVC.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IAdService, AdService>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }

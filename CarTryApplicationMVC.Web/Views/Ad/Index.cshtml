@@ -1,0 +1,138 @@
+﻿@model CarTryApplicationMVC.Application.ViewModels.Ad.ListAdForListVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-action="Index" asp-controller="Ad" method="post">
+    <div class="row">
+        <input type="text" asp-for="CarBrandString" name="carBrandString" id="carBrandString" />
+        <input type="submit" value="Wyszukaj marke" />
+        <input type="text" asp-for="CarModelString" name="carModelString" id="carModelString" />
+        <input type="submit" value="Wyszukaj model" />
+        <input type="text" asp-for="CarProductionYearFrom" name="carProductionYearFrom" id="carProductionYearFrom" />
+        <input type="submit" value="Rok produkcji Od" />
+        <input type="text" asp-for="CarProductionYearTo" name="carProductionYearFrom" id="carProductionYearTo" />
+        <input type="submit" value="Rok produkcji Do" />
+    </div>
+    <div class="row">
+        <input type="text" asp-for="CarTypeBodyString" name="carTypeBodyString" id="carTypeBodyString" />
+        <input type="submit" value="Wyszukaj typ" />
+        <input type="text" asp-for="CarLocationString" name="carLocationString" id="carLocationString" />
+        <input type="submit" value="Miejscowość" />
+        <input type="text" asp-for="DriveTrainString" name="driveTrainString" id="driveTrainString" />
+        <input type="submit" value="Rodzaj napędu" />
+        <input type="text" asp-for="FuelTypeString" name="fuelTypeString" id="fuelTypeString" />
+        <input type="submit" value="Rodzaj paliwa" />
+    </div>
+    <div class="row">
+        <input type="text" asp-for="NumberOfCylindersStringFrom" name="numberOfCylindersStringFrom" id="numberOfCylindersStringFrom" />
+        <input type="submit" value="Ilość cylindrów od" />
+        <input type="text" asp-for="NumberOfCylindersStringTo" name="numberOfCylindersStringTo" id="numberOfCylindersStringTo" />
+        <input type="submit" value="Ilość cylindrów do" />
+        <input type="text" asp-for="OdometerValueStringFrom" name="OdometerValueStringFrom" id="OdometerValueStringFrom" />
+        <input type="submit" value="Przebieg od" />
+        <input type="text" asp-for="OdometerValueStringTo" name="OdometerValueStringTo" id="OdometerValueStringTo" />
+        <input type="submit" value="Przebieg do" />
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CurrentPage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PageSize)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Count)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarBrandString)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarModelString)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarLocationString)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DriveTrainString)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FuelTypeString)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarTypeBodyString)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Ads)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarBrand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarLocation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FuelType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OdometerValue)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <table>
+            <tr>
+                @for (int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
+                {
+                    <td>
+                        @if (i != Model.CurrentPage)
+                        {
+                            <a href="javascript:void(0)" onclick="PagerClick(@i)"> @i </a>
+                        }
+                        else
+                        {
+                            <span>@i</span>
+                        }
+                    </td>
+                }
+            </tr>
+        </table>
+        <input type="hidden" name="pageNo" id="pageNo" />
+        <input type="hidden" name="pageSize" id="pageSize" value="2" />
+    </div>
+</form>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function PagerClick(index)
+        {
+            document.getElementById("pageNo").value = index;
+            document.forms[0].submit();
+        }
+    </script>
+}

@@ -12,8 +12,8 @@ namespace CarTryApplicationMVC.Domain.Model
         public string City { get; set; }
         public bool IsActive { get; set; }
 
-        public virtual ICollection<Car> Cars { get; set; }
-        public virtual ICollection<CustomerDetail> CustomerDetail { get; set; }
+        public virtual ICollection<Ad> Ads { get; set; }
+        public virtual ICollection<CustomerDetail> CustomerDetails { get; set; }
         public virtual ICollection<CustomerFeedback> CustomerFeedbacks { get; set; }
 
     }

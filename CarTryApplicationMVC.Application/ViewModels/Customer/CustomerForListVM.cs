@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CarTryApplicationMVC.Application.ViewModels.Customer
 {
-    public class CustomerForListVM : IMapFrom<Domain.Model.Customer>
+    public class CustomerForListVm : IMapFrom<Domain.Model.Customer>
     {
         public int Id { get; set; }
         public string City { get; set; }
@@ -13,7 +13,7 @@ namespace CarTryApplicationMVC.Application.ViewModels.Customer
 
         public void Mapping(MappingProfile profile)
         {
-            profile.CreateMap<Domain.Model.Customer, CustomerForListVM>()
+            profile.CreateMap<Domain.Model.Customer, CustomerForListVm>()
                 .ForMember(s => s.Name, opt => opt.MapFrom(s => s.FirstName + " " + s.LastName));
         }
     }

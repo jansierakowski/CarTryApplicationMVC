@@ -15,9 +15,9 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             _context = context;
         }
 
-        public void DeleteItem(int itemId)
+        public void DeleteAd(int ad)
         {
-            var item = _context.Ads.Find(itemId);
+            var item = _context.Ads.Find(ad);
             if (item != null)
             {
                 _context.Ads.Remove(item);
@@ -25,18 +25,30 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             }
         }
 
-        public int AddItem(Ad carAds)
+        public int AddAd(Ad ad)
         {
-            _context.Ads.Add(carAds);
+            _context.Ads.Add(ad);
             _context.SaveChanges();
-            return carAds.Id;
+            return ad.Id;
         }
 
-        public IQueryable<Ad> GetCarAdsByAdType(string type)
+        public void UpdateAd(Ad ad)
         {
-            var adType = _context.Ads.Where(i => i.AdType.AdvertisementType == type);
-            return adType;
+            _context.Attach(ad);
+
+            _context.Entry(ad).Property("AdName").IsModified = true;
+            _context.Entry(ad).Property("AdDescription").IsModified = true;
+            _context.Entry(ad).Property("AdPrice").IsModified = true;
+            _context.Entry(ad.Car).Property("CarBrand").IsModified = true;
+            _context.Entry(ad.Car).Property("CarModel").IsModified = true;
+            _context.Entry(ad.Car).Property("CarLocation").IsModified = true;
+            _context.Entry(ad.Car).Property("FuelType").IsModified = true;
+            _context.Entry(ad.Car).Property("DriveTrain").IsModified = true;
+            _context.Entry(ad.Car).Property("OdometerValue").IsModified = true;
+            _context.Entry(ad.Car).Property("NumberOfCylinders").IsModified = true;
+            _context.SaveChanges();
         }
+
 
         public Ad GetCarAdById(int carId)
         {
@@ -49,5 +61,17 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             var tags = _context.Tags;
             return tags;
         }
+
+        public IQueryable<Ad> GetAllActiveAds()
+        {
+            return _context.Ads.Where(p => p.IsActive);
+        }
+
+        public Ad GetAd(int id)
+        {
+            return _context.Ads.FirstOrDefault(p => p.Id == id);
+        }
+
+
     }
 }

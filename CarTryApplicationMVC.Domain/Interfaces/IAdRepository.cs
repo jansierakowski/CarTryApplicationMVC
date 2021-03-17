@@ -8,11 +8,13 @@ namespace CarTryApplicationMVC.Domain.Interfaces
 {
     public interface IAdRepository
     {
-        void DeleteItem(int AdId);
-        int AddItem(Ad Ads);
-        IQueryable<Ad> GetCarAdsByAdType(string type);
+        IQueryable<Ad> GetAllActiveAds();
+        Ad GetAd(int id);
+        void DeleteAd(int AdId);
+        int AddAd(Ad Ads);
+        void UpdateAd(Ad ad);
         Ad GetCarAdById(int itemId);
         IQueryable<Tag> GetAllTag();
-        
+
     }
 }

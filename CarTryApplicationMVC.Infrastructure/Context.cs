@@ -10,7 +10,6 @@ namespace CarTryApplicationMVC.Infrastructure
     public class Context : IdentityDbContext
     {
         public DbSet<Ad> Ads { get; set; }
-        public DbSet<AdType> AdTypes { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<AdTag> CarAdTag { get; set; }
         public DbSet<CarEquipment> CarEquipments { get; set; }
@@ -18,7 +17,7 @@ namespace CarTryApplicationMVC.Infrastructure
         public DbSet<CarTypeBody> CarTypeBodies { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerDetail> CustomerDetails { get; set; }
-        public CustomerDetailType CustomerDetailTypes { get; set; }
+        public DbSet<CustomerDetailType> CustomerDetailTypes { get; set; }
         public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
