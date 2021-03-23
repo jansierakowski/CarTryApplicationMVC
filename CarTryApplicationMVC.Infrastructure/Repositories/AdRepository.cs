@@ -1,5 +1,6 @@
 ﻿using CarTryApplicationMVC.Domain.Interfaces;
 using CarTryApplicationMVC.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,13 +50,6 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-
-        public Ad GetCarAdById(int carId)
-        {
-            var ad = _context.Ads.FirstOrDefault(i => i.Id == carId);
-            return ad;
-        }
-
         public IQueryable<Tag> GetAllTag()
         {
             var tags = _context.Tags;
@@ -64,13 +58,40 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
 
         public IQueryable<Ad> GetAllActiveAds()
         {
-            return _context.Ads.Where(p => p.IsActive);
+            return _context.Ads.Where(p => p.IsActive)
+                                .Include(p => p.Car.CarModel);
         }
 
         public Ad GetAd(int id)
         {
             return _context.Ads.FirstOrDefault(p => p.Id == id);
         }
+        public Car GetCarByAdId(int adId)
+        {
+            var ad = _context.Ads.FirstOrDefault(p => p.Id == adId);
+            return _context.Cars.Include(p=>p.CarModel).FirstOrDefault(p => p.Id == ad.CarId);
+        }
+       
+        public CarModel GetCarModelByAdId(int adId)
+        {
+            var car = GetCarByAdId(adId);
+            return _context.CarModels.FirstOrDefault(p => p.CarId == car.Id);
+        }
+
+
+        public IQueryable<Car> GetAllCars()
+        {
+            var cars = _context.Cars.Include(p => p.CarModel);
+            return cars;
+        }
+
+        public IQueryable<CarModel> GetAllModels()
+        {
+            var cars = _context.CarModels;
+            return cars;
+        }
+
+
 
 
     }

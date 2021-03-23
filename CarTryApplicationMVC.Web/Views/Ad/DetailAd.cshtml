@@ -1,0 +1,91 @@
+﻿@model CarTryApplicationMVC.Application.ViewModels.Ad.AdDetailsVm
+
+@{
+    ViewData["Title"] = "DetailAd";
+}
+
+<h1>DetailAd</h1>
+
+<div>
+    <h4>AdDetailsVm</h4>
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AdName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AdName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarBrand)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarBrand)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarModel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarModel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AdPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AdPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarGeneration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarGeneration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarProductionYear)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarProductionYear)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarLocation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarLocation)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FuelType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FuelType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DriveTrain)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DriveTrain)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OdometerValue)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OdometerValue)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumberOfCylinders)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumberOfCylinders)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarEquipment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarEquipment)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

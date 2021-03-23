@@ -4,11 +4,13 @@ using System.Text;
 
 namespace CarTryApplicationMVC.Domain.Model
 {
-    public class CarTypeBody
+    public class CarModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public virtual ICollection<Car> Cars { get; set; }
+        public string Model { get; set; }
+        public int CarId { get; set; }
+        public virtual Car Car { get; set; }
 
+        
     }
 }

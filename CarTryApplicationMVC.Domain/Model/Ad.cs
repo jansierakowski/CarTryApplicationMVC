@@ -24,6 +24,7 @@ namespace CarTryApplicationMVC.Domain.Model
         public virtual Customer Customer { get; set; }
         public virtual Car Car { get; set; }
         public virtual ICollection<AdTag> AdTags { get; set; }
+        public virtual ICollection<CarEquipment> CarEquipments { get; set; }
 
 
     }

@@ -11,10 +11,10 @@ namespace CarTryApplicationMVC.Infrastructure
     {
         public DbSet<Ad> Ads { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<CarModel> CarModels { get; set; }
         public DbSet<AdTag> CarAdTag { get; set; }
         public DbSet<CarEquipment> CarEquipments { get; set; }
         public DbSet<CarFeedback> CarFeedbacks { get; set; }
-        public DbSet<CarTypeBody> CarTypeBodies { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerDetail> CustomerDetails { get; set; }
         public DbSet<CustomerDetailType> CustomerDetailTypes { get; set; }

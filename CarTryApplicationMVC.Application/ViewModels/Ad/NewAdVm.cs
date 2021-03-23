@@ -1,4 +1,5 @@
 ﻿using CarTryApplicationMVC.Application.Mapping;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
     {
         public int Id { get; set; }
 
-
+        public int CustomerId { get; set; }
         public string AdName { get; set; }
         public int AdPrice { get; set; }
         public string AdPromotion { get; set; }
@@ -26,11 +27,21 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
         public int NumberOfCylinders { get; set; }
         public string CarEquipment { get; set; }
 
+        //public IEnumerable<SelectListItem> CarBrandList { get; set; }
+        public List<SelectListItem> CarModelList { get; set; } 
+        public List<SelectListItem> CarBrandList { get; set; } 
+        public List<SelectListItem> AdPromotionList { get; set; } 
+
+
         public void Mapping(MappingProfile profile)
         {
             profile.CreateMap<NewAdVm, Domain.Model.Ad>()
                 .ForMember(s => s.IsActive, opt => opt.MapFrom(s => true)).ReverseMap();
-            profile.CreateMap<NewAdVm, Domain.Model.Car>().ReverseMap();
+            
+            profile.CreateMap<NewAdVm, Domain.Model.Car>()
+                .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.CarBrandList))
+                .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.CarModelList))
+                .ReverseMap();
         }
     }
 }

@@ -99,18 +99,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.Property<string>("CarBrand")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CarGeneration")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CarModel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CarTypeBodyId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CarTypeBodyId");
 
                     b.ToTable("Cars");
                 });
@@ -122,7 +111,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CarId")
+                    b.Property<int>("AdId")
                         .HasColumnType("int");
 
                     b.Property<string>("Equipment")
@@ -130,7 +119,7 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId");
+                    b.HasIndex("AdId");
 
                     b.ToTable("CarEquipments");
                 });
@@ -158,19 +147,24 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.ToTable("CarFeedbacks");
                 });
 
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CarTypeBody", b =>
+            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CarModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Model")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarTypeBodies");
+                    b.HasIndex("CarId");
+
+                    b.ToTable("CarModels");
                 });
 
             modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.Customer", b =>
@@ -505,20 +499,11 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.Car", b =>
-                {
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.CarTypeBody", "CarTypeBody")
-                        .WithMany("Cars")
-                        .HasForeignKey("CarTypeBodyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CarEquipment", b =>
                 {
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.Car", "Car")
+                    b.HasOne("CarTryApplicationMVC.Domain.Model.Ad", "Ad")
                         .WithMany("CarEquipments")
-                        .HasForeignKey("CarId")
+                        .HasForeignKey("AdId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -527,6 +512,15 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 {
                     b.HasOne("CarTryApplicationMVC.Domain.Model.Car", "Car")
                         .WithMany("CarFeedbacks")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CarModel", b =>
+                {
+                    b.HasOne("CarTryApplicationMVC.Domain.Model.Car", "Car")
+                        .WithMany("CarModel")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

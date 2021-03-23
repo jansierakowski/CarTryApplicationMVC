@@ -1,4 +1,5 @@
 ﻿using CarTryApplicationMVC.Application.ViewModels.Ad;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +16,8 @@ namespace CarTryApplicationMVC.Application.Interfaces
         int AddAd(NewAdVm ad);
         void UpdateAd(NewAdVm model);
         void DeleteAd(int id);
+        NewAdVm GetCarForDropDownList();
+
 
     }
 }

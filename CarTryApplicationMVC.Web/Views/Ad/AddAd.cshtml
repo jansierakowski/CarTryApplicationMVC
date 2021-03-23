@@ -14,6 +14,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
+                <label asp-for="CustomerId" class="control-label"></label>
+                <input asp-for="CustomerId" class="form-control" />
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="AdName" class="control-label"></label>
                 <input asp-for="AdName" class="form-control" />
                 <span asp-validation-for="AdName" class="text-danger"></span>
@@ -25,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="AdPromotion" class="control-label"></label>
-                <input asp-for="AdPromotion" class="form-control" />
+                <select asp-for="AdPromotion" asp-items="Model.AdPromotionList" class="form-control"></select>
                 <span asp-validation-for="AdPromotion" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -45,12 +50,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="CarBrand" class="control-label"></label>
-                <input asp-for="CarBrand" class="form-control" />
+                <select asp-for="CarBrand" asp-items="Model.CarBrandList" class="form-control"></select>
                 <span asp-validation-for="CarBrand" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CarModel" class="control-label"></label>
-                <input asp-for="CarModel" class="form-control" />
+                <select asp-for="CarModel" asp-items="Model.CarModelList" class="form-control"></select>///////////
                 <span asp-validation-for="CarModel" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -92,6 +97,8 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+
+
 </div>
 
 @section Scripts {

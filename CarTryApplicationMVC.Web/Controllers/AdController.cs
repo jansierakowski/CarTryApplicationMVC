@@ -20,7 +20,7 @@ namespace CarTryApplicationMVC.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _adService.GetAllAdForList(10, 1, "", "", "", "", "", "");
+            var model = _adService.GetAllAdForList(10, 1, "","", "", "", "", "");
             return View(model);
         }
 
@@ -60,7 +60,7 @@ namespace CarTryApplicationMVC.Web.Controllers
             }
 
 
-            var model = _adService.GetAllAdForList(pageSize, pageNo.Value, carBrandString, carModelString, carLocationString,
+            var model = _adService.GetAllAdForList(pageSize, pageNo.Value, carBrandString,carModelString, carLocationString,
             driveTrainString, fuelTypeString, carTypeBodyString);
 
             return View(model);
@@ -69,7 +69,8 @@ namespace CarTryApplicationMVC.Web.Controllers
         [HttpGet]
         public IActionResult AddAd()
         {
-            return View(new NewAdVm());
+            var model =_adService.GetCarForDropDownList();
+            return View(model);
         }
 
         [HttpPost]
@@ -101,6 +102,13 @@ namespace CarTryApplicationMVC.Web.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult DetailAd(int id)
+        {
+            var ad = _adService.GetAdDetail(id);
+            return View(ad);
         }
 
 

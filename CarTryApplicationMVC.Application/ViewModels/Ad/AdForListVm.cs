@@ -19,11 +19,13 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
         public void Mapping(MappingProfile profile)
         {
             profile.CreateMap<Domain.Model.Ad, AdForListVm>()
-                .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.Car.CarBrand))
-                .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.Car.CarModel))
                 .ForMember(s => s.CarLocation, opt => opt.MapFrom(s => s.CarLocation))
                 .ForMember(s => s.OdometerValue, opt => opt.MapFrom(s => s.CarOdometerValue))
                 .ForMember(s => s.FuelType, opt => opt.MapFrom(s => s.CarFuelType));
+            
+            profile.CreateMap<Domain.Model.CarModel, AdForListVm>()
+                .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.Car.CarBrand))
+                .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.Model));
         }
 
 

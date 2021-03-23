@@ -32,20 +32,14 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             }
         }
 
-        public IQueryable<Car> GetCarsByBodyType(string bodyType)
-        {
-
-            var body = _context.Cars.Where(a => a.CarTypeBody.Name == bodyType);
-            return body;
-        }
         public IQueryable<Car> GetCarsByBrand(string carBrand)
         {
             var brand = _context.Cars.Where(a => a.CarBrand == carBrand);
             return brand;
         }
-        public IQueryable<Car> GetCarsByModel(string model)
+        public IQueryable<CarModel> GetCarsByModel(string model)
         {
-            var carModel = _context.Cars.Where(a => a.CarModel == model);
+            var carModel = _context.CarModels.Where(a => a.Model == model);
             return carModel;
         }
 
@@ -61,9 +55,9 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             return carId;
         }
 
-        public IQueryable<CarFeedback> GetCarFeedbeckByCarModel(string model)
+        public IQueryable<CarModel> GetCarFeedbeckByCarModel(string carBrand, string carModel)
         {
-            var carFeedback = _context.CarFeedbacks.Where(a => a.Car.CarModel == model);
+            var carFeedback = _context.CarModels.Where(a => a.Car.CarBrand == carBrand && a.Model == carModel);
             return carFeedback;
         }
 

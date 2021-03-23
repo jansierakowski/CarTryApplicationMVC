@@ -4,8 +4,8 @@
     {
         public int Id { get; set; }
         public string Equipment { get; set; }
-        public int CarId { get; set; }
-        public virtual Car Car { get; set; }
+        public int AdId { get; set; }
+        public virtual Ad Ad { get; set; }
 
     }
 }
