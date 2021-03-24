@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace CarTryApplicationMVC.Application.ViewModels.Ad
 {
@@ -11,15 +12,16 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
         public int Id { get; set; }
 
         public int CustomerId { get; set; }
+        public int CarId { get; set; }
+        public int CarModelId { get; set; }
         public string AdName { get; set; }
         public int AdPrice { get; set; }
         public string AdPromotion { get; set; }
         public string AdDescription { get; set; }
-        public int CarId { get; set; }
         public string CarGeneration { get; set; }
         public int CarProductionYear { get; set; }
-        public string CarBrand { get; set; }
-        public string CarModel { get; set; }
+        public int CarBrand { get; set; }
+        public int CarModel { get; set; }
         public string CarLocation { get; set; }
         public string FuelType { get; set; }
         public string DriveTrain { get; set; }
@@ -36,12 +38,12 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
         public void Mapping(MappingProfile profile)
         {
             profile.CreateMap<NewAdVm, Domain.Model.Ad>()
-                .ForMember(s => s.IsActive, opt => opt.MapFrom(s => true)).ReverseMap();
-            
-            profile.CreateMap<NewAdVm, Domain.Model.Car>()
-                .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.CarBrandList))
-                .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.CarModelList))
-                .ReverseMap();
+                .ForMember(s => s.IsActive, opt => opt.MapFrom(s => true))
+                .ForMember(s => s.CarId, opt => opt.MapFrom(s => s.CarBrand))
+                //.ForMember(s=>s.Car.CarModel.Select(t=>t.Id),opt=>opt.MapFrom(s=>s.CarModel))
+                .ForMember(s => s.CustomerId, opt => opt.MapFrom(s => s.CustomerId))
+                   //.ForPath(s => s.Car.CarModel.Select(t => t.Id).FirstOrDefault(), opt => opt.MapFrom(src => src.CarModel))
+                   .ReverseMap();
         }
     }
 }

@@ -25,6 +25,7 @@ namespace CarTryApplicationMVC.Application.Service
 
         public int AddAd(NewAdVm ad)
         {
+            
             var ads = _mapper.Map<Ad>(ad);
             var id = _adRepo.AddAd(ads);
 

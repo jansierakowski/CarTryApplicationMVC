@@ -20,7 +20,7 @@ namespace CarTryApplicationMVC.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _adService.GetAllAdForList(10, 1, "","", "", "", "", "");
+            var model = _adService.GetAllAdForList(8, 1, "","", "", "", "", "");
             return View(model);
         }
 

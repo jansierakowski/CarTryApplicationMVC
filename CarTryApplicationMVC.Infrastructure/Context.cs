@@ -47,6 +47,8 @@ namespace CarTryApplicationMVC.Infrastructure
                 .HasOne(i => i.Car)
                 .WithMany(i => i.CarModel)
                 .HasForeignKey(d => d.CarId);
+
+
         }
     }
 }
