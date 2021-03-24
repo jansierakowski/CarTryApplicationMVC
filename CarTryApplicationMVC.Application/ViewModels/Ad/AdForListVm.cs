@@ -1,4 +1,5 @@
 ﻿using CarTryApplicationMVC.Application.Mapping;
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,11 +22,17 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
             profile.CreateMap<Domain.Model.Ad, AdForListVm>()
                 .ForMember(s => s.CarLocation, opt => opt.MapFrom(s => s.CarLocation))
                 .ForMember(s => s.OdometerValue, opt => opt.MapFrom(s => s.CarOdometerValue))
-                .ForMember(s => s.FuelType, opt => opt.MapFrom(s => s.CarFuelType));
-            
-            profile.CreateMap<Domain.Model.CarModel, AdForListVm>()
+                .ForMember(s => s.FuelType, opt => opt.MapFrom(s => s.CarFuelType))
                 .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.Car.CarBrand))
-                .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.Model));
+                .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.Car.CarModel.Select(t=>t.Model).FirstOrDefault()));
+
+
+           
+   
+
+
+
+
         }
 
 

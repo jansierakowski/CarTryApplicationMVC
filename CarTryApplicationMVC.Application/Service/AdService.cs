@@ -117,7 +117,8 @@ namespace CarTryApplicationMVC.Application.Service
                                                string driveTrainString, string fuelTypeString, string carTypeBodyString)
         {
             var ad = _adRepo.GetAllActiveAds().Where(p => p.CarLocation.StartsWith(carLocationString) &&
-                                                     p.Car.CarModel.StartsWith(carLocationString) &&
+                                                    p.Car.CarBrand.StartsWith(carBrandString) &&
+                                                    p.Car.CarModel.Any(c=>c.Model.StartsWith(carModelString))&&
                                                      //p.Car.CarProductionYear <= carProductionYearTo &&
                                                      //p.Car.CarProductionYear >= carProductionYearFrom &&
                                                      p.CarDriveTrain.StartsWith(driveTrainString) &&
@@ -128,9 +129,6 @@ namespace CarTryApplicationMVC.Application.Service
                                                      //p.Car.OdometerValue <= odometerValueStringTo &&
                                                      //p.Car.OdometerValue >= odometerValueStringFrom))
                                                      .ProjectTo<AdForListVm>(_mapper.ConfigurationProvider).ToList();
-
-            //var ad = _adRepo.GetAllModels().Where(p => p.Car.CarBrand.StartsWith(carBrandString) &&
-            //p.Model.StartsWith(carModelString)).ProjectTo<AdForListVm>(_mapper.ConfigurationProvider).ToList();
 
             var adListToShow = ad.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
 

@@ -43,6 +43,10 @@ namespace CarTryApplicationMVC.Infrastructure
                 .WithMany(i => i.AdTags)
                 .HasForeignKey(i => i.TagId);
 
+            builder.Entity<CarModel>()
+                .HasOne(i => i.Car)
+                .WithMany(i => i.CarModel)
+                .HasForeignKey(d => d.CarId);
         }
     }
 }

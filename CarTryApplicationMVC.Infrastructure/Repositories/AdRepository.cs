@@ -58,8 +58,7 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
 
         public IQueryable<Ad> GetAllActiveAds()
         {
-            return _context.Ads.Where(p => p.IsActive)
-                                .Include(p => p.Car.CarModel);
+            return _context.Ads.Where(p => p.IsActive);
         }
 
         public Ad GetAd(int id)
