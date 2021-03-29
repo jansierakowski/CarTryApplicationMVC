@@ -40,13 +40,13 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             _context.Entry(ad).Property("AdName").IsModified = true;
             _context.Entry(ad).Property("AdDescription").IsModified = true;
             _context.Entry(ad).Property("AdPrice").IsModified = true;
-            _context.Entry(ad.Car).Property("CarBrand").IsModified = true;
-            _context.Entry(ad.Car).Property("CarModel").IsModified = true;
-            _context.Entry(ad.Car).Property("CarLocation").IsModified = true;
-            _context.Entry(ad.Car).Property("FuelType").IsModified = true;
-            _context.Entry(ad.Car).Property("DriveTrain").IsModified = true;
-            _context.Entry(ad.Car).Property("OdometerValue").IsModified = true;
-            _context.Entry(ad.Car).Property("NumberOfCylinders").IsModified = true;
+            _context.Entry(ad.CarSpecification.CarModelName).Property("CarBrandName").IsModified = true;
+            _context.Entry(ad.CarSpecification.CarBrandName).Property("CarModelName").IsModified = true;
+            _context.Entry(ad).Property("CarLocation").IsModified = true;
+            _context.Entry(ad.CarSpecification).Property("FuelType").IsModified = true;
+            _context.Entry(ad.CarSpecification).Property("DriveTrain").IsModified = true;
+            _context.Entry(ad.CarSpecification).Property("OdometerValue").IsModified = true;
+            _context.Entry(ad.CarSpecification).Property("NumberOfCylinders").IsModified = true;
             _context.SaveChanges();
         }
 
@@ -58,40 +58,23 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
 
         public IQueryable<Ad> GetAllActiveAds()
         {
-            return _context.Ads.Where(p => p.IsActive);
+            return _context.Ads.Where(p => p.IsActive).Include(p=>p.CarSpecification);
         }
 
         public Ad GetAd(int id)
         {
             return _context.Ads.FirstOrDefault(p => p.Id == id);
         }
-        public Car GetCarByAdId(int adId)
+        public CarSpecification GetCarByAdId(int adId)
         {
             var ad = _context.Ads.FirstOrDefault(p => p.Id == adId);
-            return _context.Cars.Include(p=>p.CarModel).FirstOrDefault(p => p.Id == ad.CarId);
-        }
-       
-        public CarModel GetCarModelByAdId(int adId)
-        {
-            var car = GetCarByAdId(adId);
-            return _context.CarModels.FirstOrDefault(p => p.CarId == car.Id);
+            return _context.CarSpecifications.FirstOrDefault(p => p.Id == ad.CarSpecificationId);
         }
 
-
-        public IQueryable<Car> GetAllCars()
+        public IQueryable<CarModel> GetAllCars()
         {
-            var cars = _context.Cars.Include(p => p.CarModel);
+            var cars = _context.CarModels.Include(s => s.CarBrand);
             return cars;
         }
-
-        public IQueryable<CarModel> GetAllModels()
-        {
-            var cars = _context.CarModels;
-            return cars;
-        }
-
-
-
-
     }
 }

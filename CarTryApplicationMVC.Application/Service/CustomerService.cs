@@ -75,11 +75,11 @@ namespace CarTryApplicationMVC.Application.Service
                     {
                         AdName = ad.AdName,
                         AdPrice = ad.AdPrice,
-                        CarBrand = ad.Car.CarBrand,
-                        CarModel = ad.Car.CarModel.ToString(),
-                        CarProductionYear = ad.CarProductionYear,
-                        CarLocation = ad.CarLocation,
-                        FuelType = ad.CarFuelType
+                        CarBrand = ad.CarSpecification.CarBrandName,
+                        CarModel = ad.CarSpecification.CarModelName,
+                        CarProductionYear = ad.CarSpecification.ProductionYear,
+                        CarLocation = ad.AdLocation,
+                        FuelType = ad.CarSpecification.FuelType
 
 
                     };

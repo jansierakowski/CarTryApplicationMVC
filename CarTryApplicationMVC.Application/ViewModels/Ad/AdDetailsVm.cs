@@ -33,17 +33,14 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
                     //.ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.Car.CarBrand))
                     //.ForMember(s => s.CarGeneration, opt => opt.MapFrom(s => s.Car.CarGeneration))
                     //.ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.Car.CarModel))
-                    .ForMember(s => s.CarLocation, opt => opt.MapFrom(s => s.CarLocation))
-                    .ForMember(s => s.OdometerValue, opt => opt.MapFrom(s => s.CarOdometerValue))
-                    .ForMember(s => s.FuelType, opt => opt.MapFrom(s => s.CarFuelType))
-                    .ForMember(s => s.CarEquipment, opt => opt.MapFrom(s => s.CarEquipments))
-                    .ForMember(s => s.NumberOfCylinders, opt => opt.MapFrom(s => s.CarNumberOfCylinders))
-                    .ForMember(s => s.DriveTrain, opt => opt.MapFrom(s => s.CarDriveTrain));
-
-            profile.CreateMap<Domain.Model.CarModel, AdDetailsVm>()
-                  .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.Car.CarBrand))
-                  .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.Model));
-
+                    .ForMember(s => s.CarLocation, opt => opt.MapFrom(s => s.AdLocation))
+                    .ForMember(s => s.OdometerValue, opt => opt.MapFrom(s => s.CarSpecification.OdometerValue))
+                    .ForMember(s => s.FuelType, opt => opt.MapFrom(s => s.CarSpecification.FuelType))
+                    .ForMember(s => s.CarEquipment, opt => opt.MapFrom(s => s.CarSpecification.Equipment))
+                    .ForMember(s => s.NumberOfCylinders, opt => opt.MapFrom(s => s.CarSpecification.NumberOfCylinders))
+                    .ForMember(s => s.DriveTrain, opt => opt.MapFrom(s => s.CarSpecification.DriveTrain))
+                    .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.CarSpecification.CarBrandName))
+                    .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.CarSpecification.CarModelName));
 
             //profile.CreateMap<Domain.Model.CarModel, AdDetailsVm>()
 

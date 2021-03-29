@@ -15,26 +15,26 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             _context = context;
         }
 
-        public int AddItem(Car Cars)
+        public int AddItem(CarSpecification Cars)
         {
-            _context.Cars.Add(Cars);
+            _context.CarSpecifications.Add(Cars);
             _context.SaveChanges();
             return Cars.Id;
         }
 
         public void DeleteItem(int CarId)
         {
-            var item = _context.Cars.Find(CarId);
+            var item = _context.CarSpecifications.Find(CarId);
             if (item != null)
             {
-                _context.Cars.Remove(item);
+                _context.CarSpecifications.Remove(item);
                 _context.SaveChanges();
             }
         }
 
-        public IQueryable<Car> GetCarsByBrand(string carBrand)
+        public IQueryable<CarModel> GetCarsByBrand(string carBrand)
         {
-            var brand = _context.Cars.Where(a => a.CarBrand == carBrand);
+            var brand = _context.CarModels.Where(a => a.CarBrand.Brand == carBrand);
             return brand;
         }
         public IQueryable<CarModel> GetCarsByModel(string model)
@@ -45,25 +45,19 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
 
         public IQueryable<Ad> GetCarsByLocation(string location)
         {
-            var carLocation = _context.Ads.Where(a => a.CarLocation == location);
+            var carLocation = _context.Ads.Where(a => a.AdLocation == location);
             return carLocation;
         }
         
-        public Car GetCarById(int id)
+        public CarSpecification GetCarById(int id)
         {
-            var carId = _context.Cars.FirstOrDefault(a => a.Id == id);
+            var carId = _context.CarSpecifications.FirstOrDefault(a => a.Id == id);
             return carId;
         }
 
-        public IQueryable<CarModel> GetCarFeedbeckByCarModel(string carBrand, string carModel)
+        public IQueryable<CarModel> GetAllCars()
         {
-            var carFeedback = _context.CarModels.Where(a => a.Car.CarBrand == carBrand && a.Model == carModel);
-            return carFeedback;
-        }
-
-        public IQueryable<Car> GetAllCars()
-        {
-            var cars = _context.Cars;
+            var cars = _context.CarModels;
             return cars;
         }
     }

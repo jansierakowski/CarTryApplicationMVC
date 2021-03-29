@@ -17,6 +17,7 @@ namespace CarTryApplicationMVC.Application.Service
     {
         private readonly IAdRepository _adRepo;
         private readonly IMapper _mapper;
+
         public AdService(IAdRepository adRepo, IMapper mapper)
         {
             _adRepo = adRepo;
@@ -25,7 +26,6 @@ namespace CarTryApplicationMVC.Application.Service
 
         public int AddAd(NewAdVm ad)
         {
-            
             var ads = _mapper.Map<Ad>(ad);
             var id = _adRepo.AddAd(ads);
 
@@ -40,53 +40,50 @@ namespace CarTryApplicationMVC.Application.Service
         public AdDetailsVm GetAdDetail(int adId)
         {
             var ad = _adRepo.GetAd(adId);
-            var carmodel = _adRepo.GetCarModelByAdId(adId);
+            var carmodel = _adRepo.GetCarByAdId(adId);
 
             var adVm = _mapper.Map<AdDetailsVm>(ad);
-            var carVm = _mapper.Map<AdDetailsVm>(carmodel);
 
-            var adCarVm = new AdDetailsVm()
-            {
-                AdName = adVm.AdName,
-                AdPrice = adVm.AdPrice,
-                CarBrand = carVm.CarBrand,
-                CarModel = carVm.CarModel,
-                CarEquipment = adVm.CarEquipment,
-                CarGeneration = carVm.CarGeneration,
-                CarLocation = adVm.CarLocation,
-                CarProductionYear = adVm.CarProductionYear,
-                DriveTrain = adVm.DriveTrain,
-                FuelType = adVm.FuelType,
-                NumberOfCylinders = adVm.NumberOfCylinders,
-                OdometerValue = adVm.OdometerValue
-            };
+            //var adCarVm = new AdDetailsVm()
+            //{
+            //    AdName = adVm.AdName,
+            //    AdPrice = adVm.AdPrice,
+            //    CarBrand = adVm.CarBrand,
+            //    CarModel = adVm.CarModel,
+            //    CarEquipment = adVm.CarEquipment,
+            //    CarGeneration = adVm.CarGeneration,
+            //    CarLocation = adVm.CarLocation,
+            //    CarProductionYear = adVm.CarProductionYear,
+            //    DriveTrain = adVm.DriveTrain,
+            //    FuelType = adVm.FuelType,
+            //    NumberOfCylinders = adVm.NumberOfCylinders,
+            //    OdometerValue = adVm.OdometerValue
+            //};
 
             //adVm.PhoneNumbers = new List<ContactDetailsListVm>();
 
-            return adCarVm;
+            return adVm;
         }
 
         public NewAdVm GetCarForDropDownList()
         {
-            var brands = _adRepo.GetAllCars().ToList();
-            var models = _adRepo.GetAllModels().ToList();
-
+            var cars = _adRepo.GetAllCars().ToList();
 
             List<SelectListItem> carBrandList = new List<SelectListItem>();
             List<SelectListItem> carModelList = new List<SelectListItem>();
 
-            if (brands != null)
+            if (cars != null)
             {
-                foreach (var car in brands)
+                foreach (var car in cars.Select(t=>t.CarBrand).Distinct())
                 {
                     carBrandList.Add(new SelectListItem
                     {
-                        Text = car.CarBrand,
+                        Text = car.Brand,
                         Value = car.Id.ToString(),
-                }); 
+                    });
                 }
 
-                foreach (var car in models)
+                foreach (var car in cars)
                 {
                     carModelList.Add(new SelectListItem
                     {
@@ -95,6 +92,7 @@ namespace CarTryApplicationMVC.Application.Service
                     });
 
                 }
+
                 var dropDownList = new NewAdVm()
                 {
                     CarBrandList = carBrandList,
@@ -114,16 +112,16 @@ namespace CarTryApplicationMVC.Application.Service
             return adVm;
         }
 
-        public ListAdForListVm GetAllAdForList(int pageSize, int pageNo, string carBrandString,string carModelString, string carLocationString,
+        public ListAdForListVm GetAllAdForList(int pageSize, int pageNo, string carBrandString, string carModelString, string carLocationString,
                                                string driveTrainString, string fuelTypeString, string carTypeBodyString)
         {
-            var ad = _adRepo.GetAllActiveAds().Where(p => p.CarLocation.StartsWith(carLocationString) &&
-                                                    p.Car.CarBrand.StartsWith(carBrandString) &&
-                                                    p.Car.CarModel.Any(c=>c.Model.StartsWith(carModelString))&&
+            var ad = _adRepo.GetAllActiveAds().Where(p => p.AdLocation.StartsWith(carLocationString) &&
+                                                    p.CarSpecification.CarBrandName.StartsWith(carBrandString) &&
+                                                    p.CarSpecification.CarModelName.StartsWith(carModelString) &&
                                                      //p.Car.CarProductionYear <= carProductionYearTo &&
                                                      //p.Car.CarProductionYear >= carProductionYearFrom &&
-                                                     p.CarDriveTrain.StartsWith(driveTrainString) &&
-                                                     p.CarFuelType.StartsWith(fuelTypeString))
+                                                     p.CarSpecification.DriveTrain.StartsWith(driveTrainString) &&
+                                                     p.CarSpecification.FuelType.StartsWith(fuelTypeString))
                                                      //p.Car.NumberOfCylinders <= numberOfCylindersStringTo &&
                                                      //p.Car.NumberOfCylinders >= numberOfCylindersStringFrom &&
                                                      //p.Car.CarTypeBody.Name.StartsWith(carTypeBodyString)) //&&
@@ -158,8 +156,6 @@ namespace CarTryApplicationMVC.Application.Service
             return adList;
 
         }
-
-
 
         public void UpdateAd(NewAdVm model)
         {

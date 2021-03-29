@@ -10,10 +10,10 @@ namespace CarTryApplicationMVC.Infrastructure
     public class Context : IdentityDbContext
     {
         public DbSet<Ad> Ads { get; set; }
-        public DbSet<Car> Cars { get; set; }
+        public DbSet<CarSpecification> CarSpecifications { get; set; }
         public DbSet<CarModel> CarModels { get; set; }
+        public DbSet<CarBrand> CarBrands { get; set; }
         public DbSet<AdTag> CarAdTag { get; set; }
-        public DbSet<CarEquipment> CarEquipments { get; set; }
         public DbSet<CarFeedback> CarFeedbacks { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerDetail> CustomerDetails { get; set; }
@@ -42,13 +42,6 @@ namespace CarTryApplicationMVC.Infrastructure
                 .HasOne<Tag>(i => i.Tag)
                 .WithMany(i => i.AdTags)
                 .HasForeignKey(i => i.TagId);
-
-            builder.Entity<CarModel>()
-                .HasOne(i => i.Car)
-                .WithMany(i => i.CarModel)
-                .HasForeignKey(d => d.CarId);
-
-
         }
     }
 }

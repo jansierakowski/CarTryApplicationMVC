@@ -7,10 +7,8 @@ namespace CarTryApplicationMVC.Domain.Model
     public class CarModel
     {
         public int Id { get; set; }
+        public virtual int CarBrandId { get; set; }
         public string Model { get; set; }
-        public int CarId { get; set; }
-        public virtual Car Car { get; set; }
-
-        
+        public virtual CarBrand CarBrand { get; set; }
     }
 }
