@@ -13,6 +13,7 @@ namespace CarTryApplicationMVC.Domain.Interfaces
         CarSpecification GetCarByAdId(int adId);
         void DeleteAd(int AdId);
         int AddAd(Ad Ads);
+        int AddCarSpec(CarSpecification carSpecification);
         void UpdateAd(Ad ad);
         IQueryable<Tag> GetAllTag();
         IQueryable<CarModel> GetAllCars();

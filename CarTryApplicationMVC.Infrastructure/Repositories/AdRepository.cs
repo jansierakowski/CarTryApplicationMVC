@@ -33,6 +33,13 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             return ad.Id;
         }
 
+        public int AddCarSpec(CarSpecification carSpecification)
+        {
+            _context.CarSpecifications.Add(carSpecification);
+            _context.SaveChanges();
+            return carSpecification.Id;
+        }
+
         public void UpdateAd(Ad ad)
         {
             _context.Attach(ad);
@@ -40,8 +47,8 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             _context.Entry(ad).Property("AdName").IsModified = true;
             _context.Entry(ad).Property("AdDescription").IsModified = true;
             _context.Entry(ad).Property("AdPrice").IsModified = true;
-            _context.Entry(ad.CarSpecification.CarModelName).Property("CarBrandName").IsModified = true;
-            _context.Entry(ad.CarSpecification.CarBrandName).Property("CarModelName").IsModified = true;
+            //_context.Entry(ad.CarSpecification.CarModelName).Property("CarBrandName").IsModified = true;
+           // _context.Entry(ad.CarSpecification.CarBrandName).Property("CarModelName").IsModified = true;
             _context.Entry(ad).Property("CarLocation").IsModified = true;
             _context.Entry(ad.CarSpecification).Property("FuelType").IsModified = true;
             _context.Entry(ad.CarSpecification).Property("DriveTrain").IsModified = true;

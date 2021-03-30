@@ -6,6 +6,7 @@ namespace CarTryApplicationMVC.Domain.Model
 {
     public class Ad
     {
+
         public int Id { get; set; }
         public virtual int CarSpecificationId { get; set; }
         public virtual int CustomerId { get; set; }

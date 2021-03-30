@@ -142,17 +142,8 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CarBrandId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CarBrandName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CarModelId")
                         .HasColumnType("int");
-
-                    b.Property<string>("CarModelName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DriveTrain")
                         .HasColumnType("nvarchar(max)");
@@ -176,6 +167,8 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarModelId");
 
                     b.ToTable("CarSpecifications");
                 });
@@ -524,6 +517,15 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.HasOne("CarTryApplicationMVC.Domain.Model.CarBrand", "CarBrand")
                         .WithMany("CarModels")
                         .HasForeignKey("CarBrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CarSpecification", b =>
+                {
+                    b.HasOne("CarTryApplicationMVC.Domain.Model.CarModel", "CarModel")
+                        .WithMany("CarSpecifications")
+                        .HasForeignKey("CarModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

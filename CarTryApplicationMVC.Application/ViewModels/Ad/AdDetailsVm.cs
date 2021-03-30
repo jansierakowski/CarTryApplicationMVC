@@ -39,8 +39,8 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
                     .ForMember(s => s.CarEquipment, opt => opt.MapFrom(s => s.CarSpecification.Equipment))
                     .ForMember(s => s.NumberOfCylinders, opt => opt.MapFrom(s => s.CarSpecification.NumberOfCylinders))
                     .ForMember(s => s.DriveTrain, opt => opt.MapFrom(s => s.CarSpecification.DriveTrain))
-                    .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.CarSpecification.CarBrandName))
-                    .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.CarSpecification.CarModelName));
+                    .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.CarSpecification.CarModel.CarBrand.Brand))
+                    .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.CarSpecification.CarModel.Model));
 
             //profile.CreateMap<Domain.Model.CarModel, AdDetailsVm>()
 

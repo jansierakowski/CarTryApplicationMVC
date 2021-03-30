@@ -26,10 +26,31 @@ namespace CarTryApplicationMVC.Application.Service
 
         public int AddAd(NewAdVm ad)
         {
-            var ads = _mapper.Map<Ad>(ad);
-            var id = _adRepo.AddAd(ads);
+            //var ads = _mapper.Map<Ad>(ad);
+            var cars = _adRepo.GetAllCars().ToList();
+            var ads = new Ad();
 
-            return id;
+            ads.CustomerId = ad.CustomerId;
+            ads.AdName = ad.AdName;
+            ads.AdPrice = ad.AdPrice;
+            ads.AdLocation = ad.Location;
+            ads.AdPromotion = ad.AdPromotion;
+            ads.CarSpecificationId = ad.Id;
+
+            ads.CarSpecification.Generation = ad.CarGeneration;
+            ads.CarSpecification.ProductionYear = ad.ProductionYear;
+            ads.CarSpecification.FuelType = ad.FuelType;
+            ads.CarSpecification.DriveTrain = ad.DriveTrain;
+            ads.CarSpecification.OdometerValue = ad.OdometerValue;
+            ads.CarSpecification.NumberOfCylinders = ad.NumberOfCylinders;
+            ads.CarSpecification.Equipment = ad.Equipment;
+
+            ads.CarSpecification.CarModelId = cars.Where(t => t.Id == ad.CarModelIdFromList).Select(t => t.Id).FirstOrDefault();
+
+            var idAd = _adRepo.AddAd(ads);
+            //var idSpec = _adRepo.AddCarSpec(carSpec);
+
+            return idAd;
         }
 
         public void DeleteAd(int id)
@@ -116,8 +137,8 @@ namespace CarTryApplicationMVC.Application.Service
                                                string driveTrainString, string fuelTypeString, string carTypeBodyString)
         {
             var ad = _adRepo.GetAllActiveAds().Where(p => p.AdLocation.StartsWith(carLocationString) &&
-                                                    p.CarSpecification.CarBrandName.StartsWith(carBrandString) &&
-                                                    p.CarSpecification.CarModelName.StartsWith(carModelString) &&
+                                                    p.CarSpecification.CarModel.CarBrand.Brand.StartsWith(carBrandString) &&
+                                                    p.CarSpecification.CarModel.Model.StartsWith(carModelString) &&
                                                      //p.Car.CarProductionYear <= carProductionYearTo &&
                                                      //p.Car.CarProductionYear >= carProductionYearFrom &&
                                                      p.CarSpecification.DriveTrain.StartsWith(driveTrainString) &&

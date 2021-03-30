@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarTryApplicationMVC.Infrastructure.Migrations
 {
-    public partial class MigrationNew1 : Migration
+    public partial class InitialNewMigration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,29 +57,6 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CarBrands", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CarSpecifications",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CarModelId = table.Column<int>(nullable: false),
-                    CarBrandId = table.Column<int>(nullable: false),
-                    CarModelName = table.Column<string>(nullable: true),
-                    CarBrandName = table.Column<string>(nullable: true),
-                    Generation = table.Column<string>(nullable: true),
-                    FuelType = table.Column<string>(nullable: true),
-                    DriveTrain = table.Column<string>(nullable: true),
-                    Equipment = table.Column<string>(nullable: true),
-                    OdometerValue = table.Column<int>(nullable: false),
-                    NumberOfCylinders = table.Column<int>(nullable: false),
-                    ProductionYear = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarSpecifications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,8 +200,8 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CarBrandId = table.Column<int>(nullable: false),
-                    Model = table.Column<string>(nullable: true)
+                    Model = table.Column<string>(nullable: true),
+                    CarBrandId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -233,60 +210,6 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         name: "FK_CarModels_CarBrands_CarBrandId",
                         column: x => x.CarBrandId,
                         principalTable: "CarBrands",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CarFeedbacks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FeedbackDetial = table.Column<string>(nullable: true),
-                    WhenOpinionsWasAdded = table.Column<DateTime>(nullable: false),
-                    CarId = table.Column<int>(nullable: false),
-                    CarSpecificationsId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarFeedbacks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CarFeedbacks_CarSpecifications_CarSpecificationsId",
-                        column: x => x.CarSpecificationsId,
-                        principalTable: "CarSpecifications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Ads",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CarSpecificationId = table.Column<int>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false),
-                    AdName = table.Column<string>(nullable: true),
-                    AdDescription = table.Column<string>(nullable: true),
-                    AdPrice = table.Column<int>(nullable: false),
-                    AdPromotion = table.Column<string>(nullable: true),
-                    AdLocation = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ads", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Ads_CarSpecifications_CarSpecificationId",
-                        column: x => x.CarSpecificationId,
-                        principalTable: "CarSpecifications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Ads_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -333,25 +256,27 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CarAdTag",
+                name: "CarSpecifications",
                 columns: table => new
                 {
-                    AdId = table.Column<int>(nullable: false),
-                    TagId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CarModelId = table.Column<int>(nullable: false),
+                    Generation = table.Column<string>(nullable: true),
+                    FuelType = table.Column<string>(nullable: true),
+                    DriveTrain = table.Column<string>(nullable: true),
+                    Equipment = table.Column<string>(nullable: true),
+                    OdometerValue = table.Column<int>(nullable: false),
+                    NumberOfCylinders = table.Column<int>(nullable: false),
+                    ProductionYear = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CarAdTag", x => new { x.AdId, x.TagId });
+                    table.PrimaryKey("PK_CarSpecifications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CarAdTag_Ads_AdId",
-                        column: x => x.AdId,
-                        principalTable: "Ads",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CarAdTag_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
+                        name: "FK_CarSpecifications_CarModels_CarModelId",
+                        column: x => x.CarModelId,
+                        principalTable: "CarModels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -372,6 +297,84 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         name: "FK_CustomerDetailTypes_CustomerDetails_CustomerDetailId",
                         column: x => x.CustomerDetailId,
                         principalTable: "CustomerDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ads",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CarSpecificationId = table.Column<int>(nullable: false),
+                    CustomerId = table.Column<int>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    AdName = table.Column<string>(nullable: true),
+                    AdDescription = table.Column<string>(nullable: true),
+                    AdPrice = table.Column<int>(nullable: false),
+                    AdPromotion = table.Column<string>(nullable: true),
+                    AdLocation = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ads", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ads_CarSpecifications_CarSpecificationId",
+                        column: x => x.CarSpecificationId,
+                        principalTable: "CarSpecifications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ads_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CarFeedbacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FeedbackDetial = table.Column<string>(nullable: true),
+                    WhenOpinionsWasAdded = table.Column<DateTime>(nullable: false),
+                    CarId = table.Column<int>(nullable: false),
+                    CarSpecificationsId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarFeedbacks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CarFeedbacks_CarSpecifications_CarSpecificationsId",
+                        column: x => x.CarSpecificationsId,
+                        principalTable: "CarSpecifications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CarAdTag",
+                columns: table => new
+                {
+                    AdId = table.Column<int>(nullable: false),
+                    TagId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarAdTag", x => new { x.AdId, x.TagId });
+                    table.ForeignKey(
+                        name: "FK_CarAdTag_Ads_AdId",
+                        column: x => x.AdId,
+                        principalTable: "Ads",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CarAdTag_Tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -441,6 +444,11 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 column: "CarBrandId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CarSpecifications_CarModelId",
+                table: "CarSpecifications",
+                column: "CarModelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CustomerDetails_CustomerId",
                 table: "CustomerDetails",
                 column: "CustomerId");
@@ -480,9 +488,6 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 name: "CarFeedbacks");
 
             migrationBuilder.DropTable(
-                name: "CarModels");
-
-            migrationBuilder.DropTable(
                 name: "CustomerDetailTypes");
 
             migrationBuilder.DropTable(
@@ -501,9 +506,6 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                 name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "CarBrands");
-
-            migrationBuilder.DropTable(
                 name: "CustomerDetails");
 
             migrationBuilder.DropTable(
@@ -511,6 +513,12 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "CarModels");
+
+            migrationBuilder.DropTable(
+                name: "CarBrands");
         }
     }
 }
