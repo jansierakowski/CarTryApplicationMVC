@@ -30,9 +30,6 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
         public void Mapping(MappingProfile profile)
         {
             profile.CreateMap<Domain.Model.Ad, AdDetailsVm>()
-                    //.ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.Car.CarBrand))
-                    //.ForMember(s => s.CarGeneration, opt => opt.MapFrom(s => s.Car.CarGeneration))
-                    //.ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.Car.CarModel))
                     .ForMember(s => s.CarLocation, opt => opt.MapFrom(s => s.AdLocation))
                     .ForMember(s => s.OdometerValue, opt => opt.MapFrom(s => s.CarSpecification.OdometerValue))
                     .ForMember(s => s.FuelType, opt => opt.MapFrom(s => s.CarSpecification.FuelType))
@@ -42,7 +39,6 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
                     .ForMember(s => s.CarBrand, opt => opt.MapFrom(s => s.CarSpecification.CarModel.CarBrand.Brand))
                     .ForMember(s => s.CarModel, opt => opt.MapFrom(s => s.CarSpecification.CarModel.Model));
 
-            //profile.CreateMap<Domain.Model.CarModel, AdDetailsVm>()
 
         }
     }

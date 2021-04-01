@@ -28,28 +28,26 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
         public string Equipment { get; set; }
 
         //public IEnumerable<SelectListItem> CarBrandList { get; set; }
-        public List<SelectListItem> CarModelList { get; set; } 
-        public List<SelectListItem> CarBrandList { get; set; } 
-        public List<SelectListItem> AdPromotionList { get; set; } 
+        public List<SelectListItem> CarModelList { get; set; }
+        public List<SelectListItem> CarBrandList { get; set; }
+        public List<SelectListItem> AdPromotionList { get; set; }
 
 
-        //public void Mapping(MappingProfile profile)
-        //{
-        //    profile.CreateMap<NewAdVm, Domain.Model.Ad>()
-        //        .ForPath(s => s.IsActive, opt => opt.MapFrom(s => true))
-        //        .ForPath(s => s.CarSpecificationId, opt => opt.MapFrom(s => s.Id))
-
-        //        .ForPath(s => s.CarSpecification.CarBrandId, opt => opt.MapFrom(s => s.CarBrand))
-        //        .ForPath(s => s.CarSpecification.CarModelId, opt => opt.MapFrom(s => s.CarModel))
-
-        //        .ForPath(s => s.CarSpecification.DriveTrain, opt => opt.MapFrom(s => s.DriveTrain))
-        //        .ForPath(s => s.CarSpecification.FuelType, opt => opt.MapFrom(s => s.FuelType))
-        //        .ForPath(s => s.CarSpecification.Generation, opt => opt.MapFrom(s => s.CarGeneration))
-        //        .ForPath(s => s.CarSpecification.NumberOfCylinders, opt => opt.MapFrom(s => s.NumberOfCylinders))
-        //        .ForPath(s => s.CarSpecification.OdometerValue, opt => opt.MapFrom(s => s.OdometerValue))
-        //        .ForPath(s => s.CarSpecification.ProductionYear, opt => opt.MapFrom(s => s.ProductionYear))
-        //        .ForPath(s => s.CustomerId, opt => opt.MapFrom(s => s.CustomerId))
-        //        .ReverseMap();
-        //}
+        public void Mapping(MappingProfile profile)
+        {
+            profile.CreateMap<NewAdVm, Domain.Model.Ad>()
+                .ForPath(s => s.IsActive, opt => opt.MapFrom(s => true))
+                .ForPath(s => s.CarSpecificationId, opt => opt.MapFrom(s => s.Id))
+                .ForPath(s=>s.AdLocation, opt=>opt.MapFrom(s=>s.Location))
+                .ForPath(s => s.CarSpecification.CarModelId, opt => opt.MapFrom(s => s.CarModelIdFromList))
+                .ForPath(s => s.CarSpecification.DriveTrain, opt => opt.MapFrom(s => s.DriveTrain))
+                .ForPath(s => s.CarSpecification.FuelType, opt => opt.MapFrom(s => s.FuelType))
+                .ForPath(s => s.CarSpecification.Generation, opt => opt.MapFrom(s => s.CarGeneration))
+                .ForPath(s => s.CarSpecification.NumberOfCylinders, opt => opt.MapFrom(s => s.NumberOfCylinders))
+                .ForPath(s => s.CarSpecification.OdometerValue, opt => opt.MapFrom(s => s.OdometerValue))
+                .ForPath(s => s.CarSpecification.ProductionYear, opt => opt.MapFrom(s => s.ProductionYear))
+                .ForPath(s => s.CustomerId, opt => opt.MapFrom(s => s.CustomerId))
+                .ReverseMap();
+        }
     }
 }

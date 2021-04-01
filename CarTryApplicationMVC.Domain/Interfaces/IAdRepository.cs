@@ -10,12 +10,12 @@ namespace CarTryApplicationMVC.Domain.Interfaces
     {
         IQueryable<Ad> GetAllActiveAds();
         Ad GetAd(int id);
-        CarSpecification GetCarByAdId(int adId);
         void DeleteAd(int AdId);
         int AddAd(Ad Ads);
-        int AddCarSpec(CarSpecification carSpecification);
         void UpdateAd(Ad ad);
         IQueryable<Tag> GetAllTag();
         IQueryable<CarModel> GetAllCars();
+        IQueryable<CarModel> GetAllCarModelByBrandId(int id);
+        IQueryable<CarModel> GetAllCarBrandByModelId(int id);
     }
 }

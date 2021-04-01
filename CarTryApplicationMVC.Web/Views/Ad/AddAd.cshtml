@@ -48,14 +48,17 @@
                 <input asp-for="ProductionYear" class="form-control" />
                 <span asp-validation-for="ProductionYear" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="CarBrandIdFromList" class="control-label"></label>
-                <select asp-for="CarBrandIdFromList" asp-items="Model.CarBrandList" class="form-control"></select>
+                <select asp-for="CarBrandIdFromList" asp-items="Model.CarBrandList" class="form-control">
+                    <option value="none" selected disabled hidden> Select Brand </option>
+                </select>
                 <span asp-validation-for="CarBrandIdFromList" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CarModelIdFromList" class="control-label"></label>
-                <select asp-for="CarModelIdFromList" asp-items="Model.CarModelList" class="form-control"></select>///////////
+                <select asp-for="CarModelIdFromList" asp-items="Model.CarModelList" class="form-control"></select>
                 <span asp-validation-for="CarModelIdFromList" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -101,6 +104,36 @@
 
 </div>
 
-@section Scripts {
+@section Scripts
+{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        //Insert default item "Select" in dropdownlist on load
+        $(document).ready(function () {
+            var items = "<option value='0'>Select Model</option>";
+            $("#CarModelIdFromList").html(items);
+        });
+
+        //Bind City dropdownlist
+        $("#CarBrandIdFromList").change(function () {
+            var brandId = $("#CarBrandIdFromList").val();
+            var url = "/Ad/GetModelList";
+
+            $.getJSON(url, { BrandId: brandId }, function (data) {
+                var item = "";
+                $("#CarModelIdFromList").empty();
+                $.each(data, function (i, model) {
+                    item += '<option value="' + model.value + '">' + model.text + '</option>'
+                });
+                $("#CarModelIdFromList").html(item);
+            });
+        });
+    </script>
+
+
+
+
+
+
 }

@@ -26,31 +26,10 @@ namespace CarTryApplicationMVC.Application.Service
 
         public int AddAd(NewAdVm ad)
         {
-            //var ads = _mapper.Map<Ad>(ad);
-            var cars = _adRepo.GetAllCars().ToList();
-            var ads = new Ad();
+            var ads = _mapper.Map<Ad>(ad);
+            var id = _adRepo.AddAd(ads);
 
-            ads.CustomerId = ad.CustomerId;
-            ads.AdName = ad.AdName;
-            ads.AdPrice = ad.AdPrice;
-            ads.AdLocation = ad.Location;
-            ads.AdPromotion = ad.AdPromotion;
-            ads.CarSpecificationId = ad.Id;
-
-            ads.CarSpecification.Generation = ad.CarGeneration;
-            ads.CarSpecification.ProductionYear = ad.ProductionYear;
-            ads.CarSpecification.FuelType = ad.FuelType;
-            ads.CarSpecification.DriveTrain = ad.DriveTrain;
-            ads.CarSpecification.OdometerValue = ad.OdometerValue;
-            ads.CarSpecification.NumberOfCylinders = ad.NumberOfCylinders;
-            ads.CarSpecification.Equipment = ad.Equipment;
-
-            ads.CarSpecification.CarModelId = cars.Where(t => t.Id == ad.CarModelIdFromList).Select(t => t.Id).FirstOrDefault();
-
-            var idAd = _adRepo.AddAd(ads);
-            //var idSpec = _adRepo.AddCarSpec(carSpec);
-
-            return idAd;
+            return id;
         }
 
         public void DeleteAd(int id)
@@ -61,28 +40,7 @@ namespace CarTryApplicationMVC.Application.Service
         public AdDetailsVm GetAdDetail(int adId)
         {
             var ad = _adRepo.GetAd(adId);
-            var carmodel = _adRepo.GetCarByAdId(adId);
-
             var adVm = _mapper.Map<AdDetailsVm>(ad);
-
-            //var adCarVm = new AdDetailsVm()
-            //{
-            //    AdName = adVm.AdName,
-            //    AdPrice = adVm.AdPrice,
-            //    CarBrand = adVm.CarBrand,
-            //    CarModel = adVm.CarModel,
-            //    CarEquipment = adVm.CarEquipment,
-            //    CarGeneration = adVm.CarGeneration,
-            //    CarLocation = adVm.CarLocation,
-            //    CarProductionYear = adVm.CarProductionYear,
-            //    DriveTrain = adVm.DriveTrain,
-            //    FuelType = adVm.FuelType,
-            //    NumberOfCylinders = adVm.NumberOfCylinders,
-            //    OdometerValue = adVm.OdometerValue
-            //};
-
-            //adVm.PhoneNumbers = new List<ContactDetailsListVm>();
-
             return adVm;
         }
 
@@ -104,15 +62,15 @@ namespace CarTryApplicationMVC.Application.Service
                     });
                 }
 
-                foreach (var car in cars)
-                {
-                    carModelList.Add(new SelectListItem
-                    {
-                        Text = car.Model,
-                        Value = car.Id.ToString()
-                    });
+                //foreach (var car in cars)
+                //{
+                //    carModelList.Add(new SelectListItem
+                //    {
+                //        Text = car.Model,
+                //        Value = car.Id.ToString()
+                //    });
 
-                }
+                //}
 
                 var dropDownList = new NewAdVm()
                 {
@@ -125,11 +83,39 @@ namespace CarTryApplicationMVC.Application.Service
             return new NewAdVm();
         }
 
+        public int GetBrandSelectedValue(int ModelId)
+        {
+            var cars = _adRepo.GetAllCarBrandByModelId(ModelId);
+            int brandId = cars.Select(t => t.CarBrandId).FirstOrDefault();
+
+            return brandId;
+        }
+
+        public List<SelectListItem> GetCarModelForDropDownList(int id)
+        {
+            List<SelectListItem> carModelList = new List<SelectListItem>();
+            var cars = _adRepo.GetAllCarModelByBrandId(id).ToList();
+
+            foreach (var car in cars)
+            {
+                carModelList.Add(new SelectListItem
+                {
+                    Text = car.Model,
+                    Value = car.Id.ToString()
+                });
+
+            }
+            return carModelList;
+        }
+
 
         public NewAdVm GetAllAdForEdit(int id)
         {
             var ad = _adRepo.GetAd(id);
+            var carbrand = GetCarForDropDownList();
             var adVm = _mapper.Map<NewAdVm>(ad);
+            adVm.CarBrandList = carbrand.CarBrandList;
+            adVm.CarModelList = carbrand.CarModelList;
             return adVm;
         }
 

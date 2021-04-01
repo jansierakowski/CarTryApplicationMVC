@@ -20,7 +20,7 @@ namespace CarTryApplicationMVC.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _adService.GetAllAdForList(8, 1, "","", "", "", "", "");
+            var model = _adService.GetAllAdForList(8, 1, "", "", "", "", "", "");
             return View(model);
         }
 
@@ -35,7 +35,7 @@ namespace CarTryApplicationMVC.Web.Controllers
             if (carBrandString is null)
             {
                 carBrandString = String.Empty;
-               
+
             }
             if (carModelString is null)
             {
@@ -60,7 +60,7 @@ namespace CarTryApplicationMVC.Web.Controllers
             }
 
 
-            var model = _adService.GetAllAdForList(pageSize, pageNo.Value, carBrandString,carModelString, carLocationString,
+            var model = _adService.GetAllAdForList(pageSize, pageNo.Value, carBrandString, carModelString, carLocationString,
             driveTrainString, fuelTypeString, carTypeBodyString);
 
             return View(model);
@@ -69,9 +69,27 @@ namespace CarTryApplicationMVC.Web.Controllers
         [HttpGet]
         public IActionResult AddAd()
         {
-            var model =_adService.GetCarForDropDownList();
+            var model = _adService.GetCarForDropDownList();
             return View(model);
         }
+
+        [HttpGet]
+        public JsonResult GetModelList(int BrandId)
+        {
+            var modelist = _adService.GetCarModelForDropDownList(BrandId);
+            return Json(modelist);
+
+        }
+
+        [HttpGet]
+        public JsonResult GetBrandSelectedValue(int ModelId)
+        {
+            var modelist = _adService.GetBrandSelectedValue(ModelId);
+
+            return Json(new { model = modelist });
+
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

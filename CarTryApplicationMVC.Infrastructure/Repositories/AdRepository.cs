@@ -33,13 +33,6 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             return ad.Id;
         }
 
-        public int AddCarSpec(CarSpecification carSpecification)
-        {
-            _context.CarSpecifications.Add(carSpecification);
-            _context.SaveChanges();
-            return carSpecification.Id;
-        }
-
         public void UpdateAd(Ad ad)
         {
             _context.Attach(ad);
@@ -47,9 +40,8 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             _context.Entry(ad).Property("AdName").IsModified = true;
             _context.Entry(ad).Property("AdDescription").IsModified = true;
             _context.Entry(ad).Property("AdPrice").IsModified = true;
-            //_context.Entry(ad.CarSpecification.CarModelName).Property("CarBrandName").IsModified = true;
-           // _context.Entry(ad.CarSpecification.CarBrandName).Property("CarModelName").IsModified = true;
-            _context.Entry(ad).Property("CarLocation").IsModified = true;
+           _context.Entry(ad.CarSpecification).Property("CarModelId").IsModified = true;
+            _context.Entry(ad).Property("AdLocation").IsModified = true;
             _context.Entry(ad.CarSpecification).Property("FuelType").IsModified = true;
             _context.Entry(ad.CarSpecification).Property("DriveTrain").IsModified = true;
             _context.Entry(ad.CarSpecification).Property("OdometerValue").IsModified = true;
@@ -70,12 +62,7 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
 
         public Ad GetAd(int id)
         {
-            return _context.Ads.FirstOrDefault(p => p.Id == id);
-        }
-        public CarSpecification GetCarByAdId(int adId)
-        {
-            var ad = _context.Ads.FirstOrDefault(p => p.Id == adId);
-            return _context.CarSpecifications.FirstOrDefault(p => p.Id == ad.CarSpecificationId);
+            return _context.Ads.Include(t=>t.CarSpecification.CarModel.CarBrand).FirstOrDefault(p => p.Id == id);
         }
 
         public IQueryable<CarModel> GetAllCars()
@@ -83,5 +70,18 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             var cars = _context.CarModels.Include(s => s.CarBrand);
             return cars;
         }
+
+        public IQueryable<CarModel> GetAllCarModelByBrandId(int id)
+        {
+            var models = _context.CarModels.Include(s => s.CarBrand).Where(t=>t.CarBrandId == id);
+            return models;
+        }
+
+        public IQueryable<CarModel> GetAllCarBrandByModelId(int id)
+        {
+            var models = _context.CarModels.Include(s => s.CarBrand).Where(t => t.Id == id);
+            return models;
+        }
+
     }
 }

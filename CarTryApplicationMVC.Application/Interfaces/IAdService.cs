@@ -17,7 +17,7 @@ namespace CarTryApplicationMVC.Application.Interfaces
         void UpdateAd(NewAdVm model);
         void DeleteAd(int id);
         NewAdVm GetCarForDropDownList();
-
-
+        List<SelectListItem> GetCarModelForDropDownList(int id);
+        int GetBrandSelectedValue(int ModelId);
     }
 }

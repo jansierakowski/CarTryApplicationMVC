@@ -1,0 +1,143 @@
+﻿@model CarTryApplicationMVC.Application.ViewModels.Ad.NewAdVm
+
+@{
+    ViewData["Title"] = "EditAd";
+}
+
+<h1>EditAd</h1>
+
+<h4>NewAdVm</h4>
+<hr />
+<div class="col-md-4">
+    <form asp-action="EditAd">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" class="form-control" />
+        <div class="form-group">
+            <label asp-for="CustomerId" class="control-label"></label>
+            <input asp-for="CustomerId" class="form-control" />
+            <span asp-validation-for="CustomerId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AdName" class="control-label"></label>
+            <input asp-for="AdName" class="form-control" />
+            <span asp-validation-for="AdName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AdPrice" class="control-label"></label>
+            <input asp-for="AdPrice" class="form-control" />
+            <span asp-validation-for="AdPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AdPromotion" class="control-label"></label>
+            <input asp-for="AdPromotion" class="form-control" />
+            <span asp-validation-for="AdPromotion" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AdDescription" class="control-label"></label>
+            <input asp-for="AdDescription" class="form-control" />
+            <span asp-validation-for="AdDescription" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarGeneration" class="control-label"></label>
+            <input asp-for="CarGeneration" class="form-control" />
+            <span asp-validation-for="CarGeneration" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductionYear" class="control-label"></label>
+            <input asp-for="ProductionYear" class="form-control" />
+            <span asp-validation-for="ProductionYear" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarBrandIdFromList" class="control-label"></label>
+            <select asp-for="CarBrandIdFromList" asp-items="Model.CarBrandList" class="form-control"></select>
+            <span asp-validation-for="CarBrandIdFromList" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarModelIdFromList" class="control-label"></label>
+            <select asp-for="CarModelIdFromList" asp-items="Model.CarModelList" class="form-control"></select>
+            <span asp-validation-for="CarModelIdFromList" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Location" class="control-label"></label>
+            <input asp-for="Location" class="form-control" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="FuelType" class="control-label"></label>
+            <input asp-for="FuelType" class="form-control" />
+            <span asp-validation-for="FuelType" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DriveTrain" class="control-label"></label>
+            <input asp-for="DriveTrain" class="form-control" />
+            <span asp-validation-for="DriveTrain" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="OdometerValue" class="control-label"></label>
+            <input asp-for="OdometerValue" class="form-control" />
+            <span asp-validation-for="OdometerValue" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NumberOfCylinders" class="control-label"></label>
+            <input asp-for="NumberOfCylinders" class="form-control" />
+            <span asp-validation-for="NumberOfCylinders" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Equipment" class="control-label"></label>
+            <input asp-for="Equipment" class="form-control" />
+            <span asp-validation-for="Equipment" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        //Insert default item "Select" in dropdownlist on load
+        //$(document).ready(function () {
+        //    var items = "<option value='#CarBrandIdFromList'></option>";
+        //    $("#CarModelIdFromList").html(items);
+        //});
+
+        var modelId = @Model.CarModelIdFromList;
+        var url = "/Ad/GetBrandSelectedValue";
+        var isChecked = true;
+        $.getJSON(url, { ModelId: modelId }, function (data) {
+            $("#CarBrandIdFromList").val(data.model).trigger('change');
+
+            }
+        );
+
+        //Bind City dropdownlist
+        $("#CarBrandIdFromList").change(function () {
+            var brandId = $("#CarBrandIdFromList").val();
+            var url = "/Ad/GetModelList";
+            $.getJSON(url, { BrandId: brandId }, function (data) {
+                var item = "";
+                $("#CarModelIdFromList").empty();
+                $.each(data, function (i, model) {
+                    item += '<option value="' + model.value + '">' + model.text + '</option>'
+                });
+                $("#CarModelIdFromList").html(item);
+
+                if (isChecked == true) {
+                    $("#CarModelIdFromList").val(modelId);
+                    isChecked = false;
+                }
+
+            });
+        });
+                //$("#CarBrandIdFromList").trigger("change");
+    </script>
+
+
+}
