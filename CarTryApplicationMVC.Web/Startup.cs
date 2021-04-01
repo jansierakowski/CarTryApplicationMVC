@@ -21,6 +21,8 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using CarTryApplicationMVC.Application.ViewModels.Customer;
 using Microsoft.Extensions.Logging;
+using CarTryApplicationMVC.Application.ViewModels.Ad;
+using static CarTryApplicationMVC.Application.ViewModels.Ad.NewAdVm;
 
 namespace CarTryApplicationMVC.Web
 {
@@ -41,14 +43,15 @@ namespace CarTryApplicationMVC.Web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<Context>();
-            services.AddControllersWithViews();
-                //.AddFluentValidation(fv=>fv.RunDefaultMvcValidationAfterFluentValidationExecutes= false);
+            services.AddControllersWithViews()
+                .AddFluentValidation(fv=>fv.RunDefaultMvcValidationAfterFluentValidationExecutes= false);
             services.AddRazorPages();
 
             //services.AddTransient<IItemService, ItemService>();
             services.AddApplication();
             services.AddInfrastructure();
-            //services.AddTransient<IValidator<NewCustomerVm>, NewCustomerValidation>();
+            services.AddTransient<IValidator<NewCustomerVm>, NewCustomerValidation>();
+            services.AddTransient<IValidator<NewAdVm>, NewAdValidation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

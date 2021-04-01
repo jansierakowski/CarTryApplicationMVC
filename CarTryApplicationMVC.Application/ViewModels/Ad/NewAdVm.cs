@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using CarTryApplicationMVC.Domain.Model;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 
 namespace CarTryApplicationMVC.Application.ViewModels.Ad
 {
@@ -12,19 +15,33 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
+        [DisplayName("Tytuł ogłoszenia")]
         public string AdName { get; set; }
-        public int AdPrice { get; set; }
+        [DisplayName("Cena")]
+        public decimal? AdPrice { get; set; }
+        [DisplayName("Sposób promowania")]
         public string AdPromotion { get; set; }
+        [DisplayName("Opis ogłoszenia")]
         public string AdDescription { get; set; }
-        public string CarGeneration { get; set; }
-        public int ProductionYear { get; set; }
-        public int CarBrandIdFromList { get; set; }
+        [DisplayName("Rok produkcji")]
+        public int? ProductionYear { get; set; }
+        [DisplayName("Marka")]
+        public int? CarBrandIdFromList { get; set; }
+        [DisplayName("Model")]
         public int CarModelIdFromList { get; set; }
+        [DisplayName("Generacja")]
+        public string CarGeneration { get; set; }
+        [DisplayName("Lokalizacja")]
         public string Location { get; set; }
+        [DisplayName("Przebieg")]
+        public int? OdometerValue { get; set; }
+        [DisplayName("Typ paliwa")]
         public string FuelType { get; set; }
+        [DisplayName("Typ napędu")]
         public string DriveTrain { get; set; }
-        public int OdometerValue { get; set; }
-        public int NumberOfCylinders { get; set; }
+        [DisplayName("Ilość cylindrów")]
+        public int? NumberOfCylinders { get; set; }
+        [DisplayName("Wyposażenie")]
         public string Equipment { get; set; }
 
         //public IEnumerable<SelectListItem> CarBrandList { get; set; }
@@ -48,6 +65,29 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
                 .ForPath(s => s.CarSpecification.ProductionYear, opt => opt.MapFrom(s => s.ProductionYear))
                 .ForPath(s => s.CustomerId, opt => opt.MapFrom(s => s.CustomerId))
                 .ReverseMap();
+        }
+
+        public class NewAdValidation : AbstractValidator<NewAdVm>
+        {
+            public NewAdValidation()
+            {
+                RuleFor(x => x.AdName).NotNull();
+                RuleFor(x => x.AdName).MaximumLength(25);
+                RuleFor(x => x.AdDescription).NotNull();
+                RuleFor(x => x.AdDescription).MaximumLength(255);
+                RuleFor(x => x.AdPrice).NotNull();
+                RuleFor(x => x.DriveTrain).NotNull();
+                RuleFor(x => x.DriveTrain).MaximumLength(10);
+                RuleFor(x => x.FuelType).NotNull();
+                RuleFor(x => x.FuelType).MaximumLength(10);
+                RuleFor(x => x.Location).NotNull();
+                RuleFor(x => x.Location).MaximumLength(40);
+                RuleFor(x => x.OdometerValue).NotNull();
+                RuleFor(x => x.ProductionYear).NotNull();
+                RuleFor(x => x.NumberOfCylinders).NotNull();
+                RuleFor(x => x.Equipment).NotNull();
+                RuleFor(x => x.CarGeneration).NotNull();
+            }
         }
     }
 }
