@@ -9,7 +9,7 @@ namespace CarTryApplicationMVC.Domain.Model
 
         public int Id { get; set; }
         public virtual int CarSpecificationId { get; set; }
-        public virtual int CustomerId { get; set; }
+        public virtual string ApplicationUserId { get; set; }
         public bool IsActive { get; set; }
         public string AdName { get; set; }
         public string AdDescription { get; set; }
@@ -18,7 +18,7 @@ namespace CarTryApplicationMVC.Domain.Model
 
 
         public string AdLocation { get; set; }
-        public virtual Customer Customer { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual CarSpecification CarSpecification { get; set; }
         public virtual ICollection<AdTag> AdTags { get; set; }
 

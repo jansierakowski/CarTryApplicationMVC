@@ -11,7 +11,7 @@ namespace CarTryApplicationMVC.Domain.Interfaces
         IQueryable<Ad> GetAllActiveAds();
         Ad GetAd(int id);
         void DeleteAd(int AdId);
-        int AddAd(Ad Ads);
+        void AddAd(Ad Ads);
         void UpdateAd(Ad ad);
         IQueryable<Tag> GetAllTag();
         IQueryable<CarModel> GetAllCars();

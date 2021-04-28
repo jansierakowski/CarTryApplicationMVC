@@ -57,7 +57,7 @@ namespace CarTryApplicationMVC.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditCustomer(int id)
+        public IActionResult EditCustomer(string id)
         {
             var customer = _custService.GetAllCustomerForEdit(id);
             return View(customer);
@@ -75,7 +75,7 @@ namespace CarTryApplicationMVC.Web.Controllers
             return View(model);
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
             _custService.DeleteCustomer(id);
             return RedirectToAction("Index");
@@ -83,7 +83,7 @@ namespace CarTryApplicationMVC.Web.Controllers
 
 
         [HttpGet]
-        public IActionResult CustomerDetail(int id)
+        public IActionResult CustomerDetail(string id)
         {
             var customer = _custService.GetCustomerDetail(id);
             return View(customer);

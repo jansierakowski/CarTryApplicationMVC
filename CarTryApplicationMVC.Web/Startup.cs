@@ -23,6 +23,7 @@ using CarTryApplicationMVC.Application.ViewModels.Customer;
 using Microsoft.Extensions.Logging;
 using CarTryApplicationMVC.Application.ViewModels.Ad;
 using static CarTryApplicationMVC.Application.ViewModels.Ad.NewAdVm;
+using CarTryApplicationMVC.Domain.Model;
 
 namespace CarTryApplicationMVC.Web
 {
@@ -41,8 +42,10 @@ namespace CarTryApplicationMVC.Web
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<Context>();
+
             services.AddControllersWithViews()
                 .AddFluentValidation(fv=>fv.RunDefaultMvcValidationAfterFluentValidationExecutes= false);
             services.AddRazorPages();

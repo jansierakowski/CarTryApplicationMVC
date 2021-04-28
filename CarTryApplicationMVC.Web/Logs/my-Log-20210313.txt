@@ -1,4 +1,0 @@
-2021-03-13T19:37:15.5164615+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
-2021-03-13T19:37:15.5276578+01:00  [INF] Hosting environment: "Development" (c3307c92)
-2021-03-13T19:37:15.5292928+01:00  [INF] Content root path: "C:\Users\jasie\source\repos\CarTryApplicationMVC\CarTryApplicationMVC.Web" (b5d60022)
-2021-03-13T19:37:15.6718563+01:00 8000008a-0004-ff00-b63f-84710c7967bb [INF] Jeste, w Home/Index (b9b23a5a)

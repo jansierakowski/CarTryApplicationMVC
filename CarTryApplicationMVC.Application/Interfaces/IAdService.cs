@@ -13,7 +13,7 @@ namespace CarTryApplicationMVC.Application.Interfaces
 
         AdDetailsVm GetAdDetail(int adId);
         NewAdVm GetAllAdForEdit(int id);
-        int AddAd(NewAdVm ad);
+        void AddAd(NewAdVm ad);
         void UpdateAd(NewAdVm model);
         void DeleteAd(int id);
         NewAdVm GetCarForDropDownList();
