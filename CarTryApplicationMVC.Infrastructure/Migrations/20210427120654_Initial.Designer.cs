@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarTryApplicationMVC.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210330000409_InitialNewMigration1")]
-    partial class InitialNewMigration1
+    [Migration("20210427120654_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.12")
+                .HasAnnotation("ProductVersion", "3.1.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -43,16 +43,21 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.Property<string>("AdPromotion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("CarSpecificationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CarSpecificationId");
 
@@ -177,10 +182,8 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
 
             modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.Customer", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -197,69 +200,6 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CustomerDetailInformation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("CustomerDetails");
-                });
-
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerDetailType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CustomerDetailId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerDetailId");
-
-                    b.ToTable("CustomerDetailTypes");
-                });
-
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerFeedback", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FeedbackDetial")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("WhenOpinionsWasAdded")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("CustomerFeedbacks");
                 });
 
             modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.Tag", b =>
@@ -340,6 +280,10 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -391,6 +335,8 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -477,19 +423,40 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
             modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.Ad", b =>
                 {
+                    b.HasOne("CarTryApplicationMVC.Domain.Model.ApplicationUser", "ApplicationUser")
+                        .WithMany("Ads")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("CarTryApplicationMVC.Domain.Model.CarSpecification", "CarSpecification")
                         .WithMany("Ads")
                         .HasForeignKey("CarSpecificationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.Customer", "Customer")
+                    b.HasOne("CarTryApplicationMVC.Domain.Model.Customer", null)
                         .WithMany("Ads")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.AdTag", b =>
@@ -528,33 +495,6 @@ namespace CarTryApplicationMVC.Infrastructure.Migrations
                     b.HasOne("CarTryApplicationMVC.Domain.Model.CarModel", "CarModel")
                         .WithMany("CarSpecifications")
                         .HasForeignKey("CarModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerDetail", b =>
-                {
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.Customer", "Customer")
-                        .WithMany("CustomerDetails")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerDetailType", b =>
-                {
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.CustomerDetail", "CustomerDetail")
-                        .WithMany("CustomerDetailTypes")
-                        .HasForeignKey("CustomerDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CarTryApplicationMVC.Domain.Model.CustomerFeedback", b =>
-                {
-                    b.HasOne("CarTryApplicationMVC.Domain.Model.Customer", "Customer")
-                        .WithMany("CustomerFeedbacks")
-                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

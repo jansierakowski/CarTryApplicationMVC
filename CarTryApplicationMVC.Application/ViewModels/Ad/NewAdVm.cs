@@ -14,7 +14,7 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
     public class NewAdVm : IMapFrom<Domain.Model.Ad>
     {
         public int Id { get; set; }
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
         [DisplayName("Tytuł ogłoszenia")]
         public string AdName { get; set; }
         [DisplayName("Cena")]
@@ -63,7 +63,7 @@ namespace CarTryApplicationMVC.Application.ViewModels.Ad
                 .ForPath(s => s.CarSpecification.NumberOfCylinders, opt => opt.MapFrom(s => s.NumberOfCylinders))
                 .ForPath(s => s.CarSpecification.OdometerValue, opt => opt.MapFrom(s => s.OdometerValue))
                 .ForPath(s => s.CarSpecification.ProductionYear, opt => opt.MapFrom(s => s.ProductionYear))
-                .ForPath(s => s.CustomerId, opt => opt.MapFrom(s => s.CustomerId))
+                .ForPath(s => s.ApplicationUserId, opt => opt.MapFrom(s => s.CustomerId))
                 .ReverseMap();
         }
 

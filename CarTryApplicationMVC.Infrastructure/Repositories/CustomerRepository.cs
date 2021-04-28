@@ -15,14 +15,14 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
         {
             _context = context;
         }
-        public int AddCustomer(Customer customer)
+        public string AddCustomer(Customer customer)
         {
             _context.Customers.Add(customer);
             _context.SaveChanges();
             return customer.Id;
         }
 
-        public void DeleteCustomer(int customerId)
+        public void DeleteCustomer(string customerId)
         {
             var customer = _context.Customers.Find(customerId);
             if (customer != null)
@@ -38,22 +38,11 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
         }
 
 
-        public Customer GetCustomer(int customerId)
+        public Customer GetCustomer(string customerId)
         {
             return _context.Customers.FirstOrDefault(p => p.Id == customerId);
         }
 
-        public IQueryable<CustomerFeedback> GetCustomerFeedbeckByCustomerId(int customerId)
-        {
-            var customerFeedback = _context.CustomerFeedbacks.Where(a => a.Customer.Id == customerId);
-            return customerFeedback;
-        }
-
-        public IQueryable<CustomerDetail> GetDetailCustomerInfotmationByCustomerId(int customerId)
-        {
-            var detialCustomer = _context.CustomerDetails.Where(a => a.Customer.Id == customerId);
-            return detialCustomer;
-        }
 
         public void UpdateCustomer(Customer customer)
         {

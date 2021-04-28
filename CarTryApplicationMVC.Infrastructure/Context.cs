@@ -16,10 +16,8 @@ namespace CarTryApplicationMVC.Infrastructure
         public DbSet<AdTag> CarAdTag { get; set; }
         public DbSet<CarFeedback> CarFeedbacks { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<CustomerDetail> CustomerDetails { get; set; }
-        public DbSet<CustomerDetailType> CustomerDetailTypes { get; set; }
-        public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public Context(DbContextOptions oprions) : base(oprions)
         {

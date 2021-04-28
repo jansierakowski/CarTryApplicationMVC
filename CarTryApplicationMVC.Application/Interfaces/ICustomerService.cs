@@ -9,11 +9,11 @@ namespace CarTryApplicationMVC.Application.Interfaces
     {
         ListCustomerForListVm GetAllCustomerForList(int pageSize, int pageNo, string searchString);
 
-        int AddCustomer(NewCustomerVm customer);
+        string AddCustomer(NewCustomerVm customer);
 
-        CustomerDetailsVm GetCustomerDetail(int customerId);
-        NewCustomerVm GetAllCustomerForEdit(int id);
+        CustomerDetailsVm GetCustomerDetail(string customerId);
+        NewCustomerVm GetAllCustomerForEdit(string id);
         void UpdateCustomer(NewCustomerVm model);
-        void DeleteCustomer(int id);
+        void DeleteCustomer(string id);
     }
 }
