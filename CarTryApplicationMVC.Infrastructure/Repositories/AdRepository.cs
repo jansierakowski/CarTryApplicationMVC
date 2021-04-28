@@ -1,5 +1,6 @@
 ﻿using CarTryApplicationMVC.Domain.Interfaces;
 using CarTryApplicationMVC.Domain.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,10 @@ namespace CarTryApplicationMVC.Infrastructure.Repositories
             }
         }
 
-        public int AddAd(Ad ad)
+        public void AddAd(Ad ad)
         {
             _context.Ads.Add(ad);
             _context.SaveChanges();
-            return ad.Id;
         }
 
         public void UpdateAd(Ad ad)

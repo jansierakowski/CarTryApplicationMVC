@@ -1,5 +1,7 @@
 ﻿using CarTryApplicationMVC.Application.Interfaces;
 using CarTryApplicationMVC.Application.ViewModels.Ad;
+using CarTryApplicationMVC.Domain.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,12 @@ namespace CarTryApplicationMVC.Web.Controllers
     public class AdController : Controller
     {
         private readonly IAdService _adService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdController(IAdService adService)
+        public AdController(IAdService adService, UserManager<ApplicationUser> userManager)
         {
             _adService = adService;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -69,7 +73,9 @@ namespace CarTryApplicationMVC.Web.Controllers
         [HttpGet]
         public IActionResult AddAd()
         {
+            string user = _userManager.GetUserId(HttpContext.User);
             var model = _adService.GetCarForDropDownList();
+            model.CustomerId = user;
             return View(model);
         }
 
@@ -97,7 +103,7 @@ namespace CarTryApplicationMVC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var id = _adService.AddAd(model);
+                _adService.AddAd(model);
                 return RedirectToAction("Index");
             }
             return View(model);

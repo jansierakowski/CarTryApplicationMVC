@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace CarTryApplicationMVC.Application.Service
 {
@@ -22,14 +24,14 @@ namespace CarTryApplicationMVC.Application.Service
         {
             _adRepo = adRepo;
             _mapper = mapper;
+
         }
 
-        public int AddAd(NewAdVm ad)
+        public void AddAd(NewAdVm ad)
         {
             var ads = _mapper.Map<Ad>(ad);
-            var id = _adRepo.AddAd(ads);
+           _adRepo.AddAd(ads);
 
-            return id;
         }
 
         public void DeleteAd(int id)
@@ -47,6 +49,7 @@ namespace CarTryApplicationMVC.Application.Service
         public NewAdVm GetCarForDropDownList()
         {
             var cars = _adRepo.GetAllCars().ToList();
+
 
             List<SelectListItem> carBrandList = new List<SelectListItem>();
             List<SelectListItem> carModelList = new List<SelectListItem>();

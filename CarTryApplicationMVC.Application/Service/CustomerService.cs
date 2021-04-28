@@ -22,19 +22,19 @@ namespace CarTryApplicationMVC.Application.Service
             _mapper = mapper;
         }
 
-        public int AddCustomer(NewCustomerVm customer)
+        public string AddCustomer(NewCustomerVm customer)
         {
             var cust = _mapper.Map<Customer>(customer);
             var id = _customerRepo.AddCustomer(cust);
             return id;
         }
 
-        public void DeleteCustomer(int id)
+        public void DeleteCustomer(string id)
         {
             _customerRepo.DeleteCustomer(id);
         }
 
-        public NewCustomerVm GetAllCustomerForEdit(int id)
+        public NewCustomerVm GetAllCustomerForEdit(string id)
         {
             var customer = _customerRepo.GetCustomer(id);
             var customerVm = _mapper.Map<NewCustomerVm>(customer);
@@ -58,7 +58,7 @@ namespace CarTryApplicationMVC.Application.Service
 
         }
 
-        public CustomerDetailsVm GetCustomerDetail(int customerId)
+        public CustomerDetailsVm GetCustomerDetail(string customerId)
         {
             var customer = _customerRepo.GetCustomer(customerId);
             var customerVm = _mapper.Map<CustomerDetailsVm>(customer);
