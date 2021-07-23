@@ -9,7 +9,7 @@
 ## General info ##
 The purpose of the application is to find an interesting car model and determine whether a given model is the unique car you want to buy. The application allows you to meet the owner of the selected car model, talk together, exchange experiences and test drive.
 
-The applications allow to add a new advertisement, add a new user, view current advertisements and a admin panel
+The applications allow to add a new advertisement, add a new user, view current advertisements and a admin panel.
 
 ## Technologies ##
 
